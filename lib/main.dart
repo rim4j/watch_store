@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:watch_store/config/theme/themes.dart';
+import 'package:watch_store/features/user/presentation/pages/register_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,23 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Watch Store',
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("home page"),
-      ),
+      theme: lightTheme(),
+      home: const RegisterPage(),
     );
   }
 }
