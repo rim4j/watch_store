@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:watch_store/core/constants/asset_images.dart';
 import 'package:watch_store/core/constants/dimens.dart';
 import 'package:watch_store/core/constants/strings.dart';
@@ -14,7 +13,10 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController inputController = TextEditingController();
     final Size size = MediaQuery.of(context).size;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
+      backgroundColor: colorScheme.background,
       body: SizedBox(
         width: double.infinity,
         child: Column(
@@ -36,7 +38,7 @@ class RegisterPage extends StatelessWidget {
                 title: AppStrings.next,
                 onTap: () {},
               ),
-            )
+            ),
           ],
         ),
       ),

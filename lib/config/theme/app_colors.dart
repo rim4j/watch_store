@@ -23,6 +23,7 @@ class AppColors {
     Color(0xFFE6FCFF),
   ];
 
+  static const Color dark = Color.fromARGB(255, 25, 25, 25);
   static const Color mainBg = Colors.white;
   static const Color title = Colors.black;
   static const Color oldPrice = Color.fromARGB(255, 191, 191, 191);

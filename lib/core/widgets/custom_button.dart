@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:watch_store/config/theme/app_colors.dart';
 import 'package:watch_store/config/theme/text_style.dart';
 
 class CustomButton extends StatelessWidget {
@@ -17,13 +16,13 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return ElevatedButton(
       onPressed: loading == true ? () {} : onTap,
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.grey,
-        backgroundColor: AppColors.title,
+        backgroundColor: colorScheme.primary,
         minimumSize: const Size(double.infinity, 60),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -37,7 +36,10 @@ class CustomButton extends StatelessWidget {
                 size: 100,
               ),
             )
-          : Text(title, style: AppTextStyles.tagTitle),
+          : Text(
+              title,
+              style: AppTextStyles.tagTitle,
+            ),
     );
   }
 }
