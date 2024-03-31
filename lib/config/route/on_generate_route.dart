@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:watch_store/config/route/route_names.dart';
 import 'package:watch_store/config/theme/text_style.dart';
 import 'package:watch_store/core/constants/strings.dart';
+import 'package:watch_store/features/user/presentation/pages/otp_page.dart';
 import 'package:watch_store/features/user/presentation/pages/register_page.dart';
 
 class OnGenerateRoute {
   OnGenerateRoute._();
   static Route<dynamic> route(RouteSettings settings) {
     final args = settings.arguments;
+
     switch (settings.name) {
       case RouteNames.registerPage:
         return routeBuilder(const RegisterPage());
+
+      case RouteNames.otpPage:
+        return routeBuilder(const OtpPage());
 
       default:
         return routeBuilder(const NoPageFound());

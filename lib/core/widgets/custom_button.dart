@@ -18,12 +18,14 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
+    final Size size = MediaQuery.of(context).size;
+
     return ElevatedButton(
       onPressed: loading == true ? () {} : onTap,
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.grey,
         backgroundColor: colorScheme.primary,
-        minimumSize: const Size(double.infinity, 60),
+        minimumSize: Size(size.width * .75, size.height * .07),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:watch_store/config/route/route_names.dart';
 import 'package:watch_store/core/constants/asset_images.dart';
 import 'package:watch_store/core/constants/dimens.dart';
 import 'package:watch_store/core/constants/strings.dart';
@@ -35,8 +36,10 @@ class RegisterPage extends StatelessWidget {
               width: size.width * .75,
               child: CustomButton(
                 // loading: true,
-                title: AppStrings.next,
-                onTap: () {},
+                title: AppStrings.sendOtpCode,
+                onTap: () {
+                  Navigator.pushNamed(context, RouteNames.otpPage);
+                },
               ),
             ),
           ],
