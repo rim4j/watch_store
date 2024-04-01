@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:watch_store/config/route/route_names.dart';
 import 'package:watch_store/config/theme/text_style.dart';
 import 'package:watch_store/core/constants/strings.dart';
+import 'package:watch_store/features/user/presentation/pages/init_profile_page.dart';
 import 'package:watch_store/features/user/presentation/pages/otp_page.dart';
 import 'package:watch_store/features/user/presentation/pages/register_page.dart';
 
@@ -16,6 +17,9 @@ class OnGenerateRoute {
 
       case RouteNames.otpPage:
         return routeBuilder(const OtpPage());
+
+      case RouteNames.initProfilePage:
+        return routeBuilder(const InitProfilePage());
 
       default:
         return routeBuilder(const NoPageFound());

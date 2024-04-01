@@ -24,7 +24,7 @@ class AppStrings {
       "نام و نام خانوادگی خود را با حروف فارسی وارد کنید";
   static const String hintHomeNumber =
       "شماره تلفن ثابت را با پیش شماره وارد بفرمایید";
-  static const String hintAddress = "آدرس پستی خود را وارد کنید";
+  static const String hintAddress = "آدرس  خود را وارد کنید";
   static const String hintPostalCode = "کد پستی  10 رقمی خود را وارد کنید";
   static const String hintLocation = "برای انتخاب موقعیت مکانی ضربه برنید";
   static const String searchProduct = "جستجوی محصولات";

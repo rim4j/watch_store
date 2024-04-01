@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:watch_store/config/route/on_generate_route.dart';
 import 'package:watch_store/config/theme/themes.dart';
 import 'package:watch_store/features/intro/presentation/pages/splash_page.dart';
-import 'package:watch_store/features/user/presentation/pages/register_page.dart';
 
 void main() {
   runApp(const MyApp());

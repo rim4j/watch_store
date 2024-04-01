@@ -58,7 +58,9 @@ class AppTextField extends StatelessWidget {
               controller: controller,
               keyboardType: inputType,
               decoration: InputDecoration(
-                hintStyle: AppTextStyles.hint,
+                hintStyle: AppTextStyles.hint.copyWith(
+                  fontSize: 12,
+                ),
                 hintText: hint,
                 prefixIcon: icon,
               ),

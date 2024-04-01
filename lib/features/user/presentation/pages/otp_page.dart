@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:watch_store/config/route/route_names.dart';
 import 'package:watch_store/config/theme/app_colors.dart';
 import 'package:watch_store/config/theme/text_style.dart';
 import 'package:watch_store/core/constants/asset_images.dart';
 import 'package:watch_store/core/constants/dimens.dart';
 import 'package:watch_store/core/constants/strings.dart';
 import 'package:watch_store/core/extensions/extensions.dart';
+import 'package:watch_store/core/utils/toast.dart';
 import 'package:watch_store/core/widgets/custom_button.dart';
 
 class OtpPage extends StatefulWidget {
@@ -41,7 +43,7 @@ class _OtpPageState extends State<OtpPage> {
                 // loading: true,
                 title: AppStrings.next,
                 onTap: () {
-                  print(_otpController.text);
+                  _submitCode();
                 },
               ),
             ),
@@ -95,5 +97,14 @@ class _OtpPageState extends State<OtpPage> {
         ],
       ),
     );
+  }
+
+  void _submitCode() {
+    if (_otpController.text.length == 6 && _otpController.text.isNotEmpty) {
+      print("success");
+      Navigator.pushNamed(context, RouteNames.initProfilePage);
+    } else {
+      CustomToast.showToastError(context, AppStrings.enterVerificationCode);
+    }
   }
 }
