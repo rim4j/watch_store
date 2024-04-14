@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:watch_store/config/route/route_names.dart';
 import 'package:watch_store/config/theme/text_style.dart';
 import 'package:watch_store/core/constants/dimens.dart';
 import 'package:watch_store/core/constants/strings.dart';
@@ -46,84 +47,81 @@ class _InitProfilePageState extends State<InitProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Center(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppDimens.medium),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.arrow_back),
-                      ),
-                      const Text(
-                        style: AppTextStyles.title,
-                        AppStrings.register,
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: pickGalleryImage,
-                  onLongPress: deleteImage,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: profileWidget(image: _image),
-                    ),
-                  ),
-                ),
-                const Text(
-                  style: AppTextStyles.title,
-                  AppStrings.chooseProfileImage,
-                ),
-                AppTextField(
-                  textAlign: TextAlign.right,
-                  label: AppStrings.nameLastName,
-                  hint: AppStrings.hintNameLastName,
-                  controller: nameController,
-                ),
-                AppTextField(
-                  textAlign: TextAlign.right,
-                  label: AppStrings.homeNumber,
-                  hint: AppStrings.hintHomeNumber,
-                  controller: homeNumberController,
-                ),
-                AppTextField(
-                  textAlign: TextAlign.right,
-                  label: AppStrings.address,
-                  hint: AppStrings.hintAddress,
-                  controller: addressController,
-                ),
-                AppTextField(
-                  textAlign: TextAlign.right,
-                  label: AppStrings.postalCode,
-                  hint: AppStrings.hintPostalCode,
-                  controller: postalCodeController,
-                ),
-                AppTextField(
-                  textAlign: TextAlign.right,
-                  label: AppStrings.location,
-                  hint: AppStrings.hintLocation,
-                  icon: const Icon(Icons.place_outlined),
-                  controller: locationController,
-                ),
-                AppDimens.large.height,
-                CustomButton(
-                  title: AppStrings.register,
-                  onTap: () {},
-                )
-              ],
+      appBar: AppBar(
+        backgroundColor: colorScheme.background,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, AppDimens.medium, 0),
+            child: Text(
+              style: AppTextStyles.title,
+              AppStrings.register,
             ),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: pickGalleryImage,
+                onLongPress: deleteImage,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: profileWidget(image: _image),
+                  ),
+                ),
+              ),
+              const Text(
+                style: AppTextStyles.avatarText,
+                AppStrings.chooseProfileImage,
+              ),
+              AppTextField(
+                textAlign: TextAlign.right,
+                label: AppStrings.nameLastName,
+                hint: AppStrings.hintNameLastName,
+                controller: nameController,
+              ),
+              AppTextField(
+                textAlign: TextAlign.right,
+                label: AppStrings.homeNumber,
+                hint: AppStrings.hintHomeNumber,
+                controller: homeNumberController,
+              ),
+              AppTextField(
+                textAlign: TextAlign.right,
+                label: AppStrings.address,
+                hint: AppStrings.hintAddress,
+                controller: addressController,
+              ),
+              AppTextField(
+                textAlign: TextAlign.right,
+                label: AppStrings.postalCode,
+                hint: AppStrings.hintPostalCode,
+                controller: postalCodeController,
+              ),
+              AppTextField(
+                textAlign: TextAlign.right,
+                label: AppStrings.location,
+                hint: AppStrings.hintLocation,
+                icon: const Icon(Icons.place_outlined),
+                controller: locationController,
+              ),
+              AppDimens.large.height,
+              CustomButton(
+                title: AppStrings.register,
+                onTap: () {
+                  Navigator.pushNamed(context, RouteNames.mainWrapper);
+                },
+              ),
+              AppDimens.veryLarge.height,
+            ],
           ),
         ),
       ),

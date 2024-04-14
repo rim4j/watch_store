@@ -5,7 +5,7 @@ import 'package:watch_store/core/constants/dimens.dart';
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   colorScheme: const ColorScheme.light(
-    background: AppColors.mainBg,
+    background: AppColors.scaffoldBackgroundColor,
     primary: AppColors.dark,
     // onPrimary: AppColorsDark.grey,
     // secondary: AppColorsLight.secondary,
