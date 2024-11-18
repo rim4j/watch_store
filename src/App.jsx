@@ -6,6 +6,7 @@ import {
   ProductsPage,
   SingleProductPage,
 } from "./pages";
+import { ErrorElement } from "./components";
 
 const router = createBrowserRouter([
   {
@@ -16,17 +17,17 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <LandingPage />,
-        //  errorElement: <ErrorElement />,
+        errorElement: <ErrorElement />,
       },
       {
         path: "products",
         element: <ProductsPage />,
-        // errorElement: <ErrorElement />,
+        errorElement: <ErrorElement />,
       },
       {
         path: "products/:id",
         element: <SingleProductPage />,
-        // errorElement: <ErrorElement />,
+        errorElement: <ErrorElement />,
       },
     ],
   },
