@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import { CiSearch } from "react-icons/ci";
+import IconButton from "./IconButton";
+import { useState } from "react";
 
 const Drawer = ({ closeDrawer, open }) => {
+  const [category, setCategory] = useState(true);
+  console.log(category);
   return (
     <DrawerContainer>
       <div
@@ -8,8 +13,33 @@ const Drawer = ({ closeDrawer, open }) => {
         onClick={closeDrawer}
       />
       <Container className={open ? "animate" : "hidden"}>
-        <h1>title</h1>
-        <button onClick={closeDrawer}>close</button>
+        {/* search */}
+        <SearchInputContainer>
+          <input
+            type='text'
+            placeholder='جستجوی محصولات'
+            className='search-input'
+          />
+          <IconButton icon={<CiSearch color='#333' size='24px' />} />
+        </SearchInputContainer>
+
+        {/* tabs */}
+        <TabsContainer>
+          <div
+            className={category ? "activeTab " : "tab"}
+            onClick={() => setCategory(true)}
+          >
+            <p>دسته بندی ها</p>
+          </div>
+          <div
+            className={!category ? "activeTab " : "tab"}
+            onClick={() => setCategory(false)}
+          >
+            <p>منو</p>
+          </div>
+        </TabsContainer>
+
+        {category ? <div>category</div> : <div>menu</div>}
       </Container>
     </DrawerContainer>
   );
@@ -74,6 +104,60 @@ const DrawerContainer = styled.div`
     z-index: -1;
     visibility: hidden;
     transition: 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+`;
+
+const SearchInputContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  .search-input {
+    outline: none;
+    border: none;
+    font-size: 14px;
+    font-family: vazir;
+  }
+`;
+
+const TabsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+
+  .tab {
+    background-color: #f5f5f5;
+    font-size: 16px;
+    width: 100%;
+    color: #909090;
+    text-align: center;
+    border-bottom: 2px solid #e9e9e9;
+
+    p {
+      padding: 20px;
+    }
+    cursor: pointer;
+
+    :hover {
+      color: black;
+      background-color: #e9e9e9;
+    }
+  }
+  .activeTab {
+    color: black;
+    background-color: #e9e9e9;
+    border-bottom: 2px solid #ff4156;
+    background-color: #f5f5f5;
+    font-size: 16px;
+    width: 100%;
+    color: #909090;
+    text-align: center;
+    p {
+      padding: 20px;
+    }
+    cursor: pointer;
+    :hover {
+      color: black;
+      background-color: #e9e9e9;
+    }
   }
 `;
 

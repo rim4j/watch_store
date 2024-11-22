@@ -7,6 +7,7 @@ import {
   SingleProductPage,
 } from "./pages";
 import { ErrorElement } from "./components";
+import "./app.css";
 
 const router = createBrowserRouter(
   [

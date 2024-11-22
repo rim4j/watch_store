@@ -7,7 +7,8 @@ import Logo from "./../assets/png/main_logo.png";
 import styled from "styled-components";
 
 const Navbar = ({ openDrawer }) => {
-  const numInCart = "۱۲";
+  const numInCart = "0";
+
   return (
     <Container>
       <IconButton

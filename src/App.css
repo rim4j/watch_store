@@ -24,14 +24,12 @@ html {
 }
 
 @font-face {
-  font-family: vazir;
-  font-style: normal;
-  font-weight: normal;
-  src: url("./assets/fonts/Vazir-Light.ttf") format("truetype");
+  font-family: vazirMatn;
+  src: url("./assets/fonts/Vazir-Medium-FD-WOL.woff2");
 }
 
 body {
-  font-family: vazir;
+  font-family: vazirMatn;
   color: var(--color-body);
   font-size: 2.4rem;
   line-height: 1.5;

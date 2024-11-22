@@ -5,11 +5,15 @@ const IconButton = ({ onClick, backgroundColor, icon, badge }) => {
     <Container onClick={onClick} style={{ backgroundColor }}>
       <Icon>{icon}</Icon>
 
-      {badge && <Badge>{badge}</Badge>}
+      {badge && (
+        <Badge>
+          <span>{badge}</span>
+        </Badge>
+      )}
     </Container>
   );
 };
-const Badge = styled.span`
+const Badge = styled.div`
   color: #ff4156;
   position: absolute;
   top: -10px;
@@ -17,10 +21,13 @@ const Badge = styled.span`
   margin-top: 5px;
   background-color: #fff;
   border-radius: 50%;
-  padding: 5px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
 `;
 
 const Icon = styled.div`
