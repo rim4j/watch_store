@@ -34,6 +34,11 @@ body {
   font-size: 2.4rem;
   line-height: 1.5;
 }
+input,
+textarea,
+select {
+  font-family: inherit !important;
+}
 
 h1,
 h2,

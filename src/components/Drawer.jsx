@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { CiSearch } from "react-icons/ci";
 import IconButton from "./IconButton";
 import { useState } from "react";
+import ListMenu from "./ListMenu";
 
 const Drawer = ({ closeDrawer, open }) => {
-  const [category, setCategory] = useState(true);
-  console.log(category);
+  const [category, setCategory] = useState(false);
   return (
     <DrawerContainer>
       <div
@@ -39,7 +39,7 @@ const Drawer = ({ closeDrawer, open }) => {
           </div>
         </TabsContainer>
 
-        {category ? <div>category</div> : <div>menu</div>}
+        {category ? <div>category</div> : <ListMenu />}
       </Container>
     </DrawerContainer>
   );
