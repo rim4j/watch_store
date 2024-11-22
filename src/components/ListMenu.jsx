@@ -34,9 +34,10 @@ const listMenuData = [
     icon: <PiPhoneCallLight />,
   },
 ];
-const ListMenu = () => {
+
+const ListMenu = ({ className }) => {
   return (
-    <Container>
+    <Container className={className}>
       {listMenuData.map((item, i) => (
         <ListMenuItem
           key={i}
@@ -49,6 +50,10 @@ const ListMenu = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  @media (min-width: 768px) {
+    display: flex;
+  }
+`;
 
 export default ListMenu;

@@ -20,6 +20,9 @@ const Container = styled.div`
     font-size: 14px;
     margin-right: 5px;
   }
+  @media screen and (min-width: 768px) {
+    border-bottom: none;
+  }
 `;
 
 export default ListMenuItem;

@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
-const IconButton = ({ onClick, backgroundColor, icon, badge }) => {
+const IconButton = ({ className, onClick, backgroundColor, icon, badge }) => {
   return (
-    <Container onClick={onClick} style={{ backgroundColor }}>
+    <Container
+      className={className}
+      onClick={onClick}
+      style={{ backgroundColor }}
+    >
       <Icon>{icon}</Icon>
 
       {badge && (
@@ -35,6 +39,7 @@ const Icon = styled.div`
 `;
 
 const Container = styled.div`
+  margin: 10px;
   position: relative;
   cursor: pointer;
   border: none;
