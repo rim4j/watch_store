@@ -1,14 +1,18 @@
 import { Outlet, useNavigation } from "react-router-dom";
+import { Navbar, Drawer } from "../components";
+import { useState } from "react";
 
 const HomeLayout = () => {
   const navigation = useNavigation();
+  const [openDrawer, setOpenDrawer] = useState(true);
 
   const isPageLoading = navigation.state === "loading";
 
   return (
     <div>
-      <h1>لوگو</h1>
-      <h1>خانه</h1>
+      <Navbar />
+      {openDrawer && <Drawer />}
+
       {isPageLoading ? (
         <p>loading</p>
       ) : (

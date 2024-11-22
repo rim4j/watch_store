@@ -27,8 +27,9 @@ html {
   font-family: vazir;
   font-style: normal;
   font-weight: normal;
-  src: url("./assets/fonts/Vazirmatn-Medium.ttf") format("truetype");
+  src: url("./assets/fonts/Vazir-Light.ttf") format("truetype");
 }
+
 body {
   font-family: vazir;
   color: var(--color-body);
