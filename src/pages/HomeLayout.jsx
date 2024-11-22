@@ -4,14 +4,18 @@ import { useState } from "react";
 
 const HomeLayout = () => {
   const navigation = useNavigation();
-  const [openDrawer, setOpenDrawer] = useState(true);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   const isPageLoading = navigation.state === "loading";
 
+  const toggleDrawer = () => {
+    setOpenDrawer(!openDrawer);
+  };
+
   return (
     <div>
-      <Navbar />
-      {openDrawer && <Drawer />}
+      <Navbar openDrawer={toggleDrawer} />
+      <Drawer closeDrawer={toggleDrawer} open={openDrawer} />
 
       {isPageLoading ? (
         <p>loading</p>

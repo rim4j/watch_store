@@ -6,12 +6,12 @@ import Logo from "./../assets/png/main_logo.png";
 
 import styled from "styled-components";
 
-const Navbar = () => {
+const Navbar = ({ openDrawer }) => {
   const numInCart = "۱۲";
   return (
     <Container>
       <IconButton
-        onClick={() => console.log("icon button")}
+        onClick={openDrawer}
         backgroundColor='#fff'
         icon={<CiMenuFries color='#333' size='24px' />}
       />
