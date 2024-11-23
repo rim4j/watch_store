@@ -3,6 +3,7 @@ import { CiSearch } from "react-icons/ci";
 import IconButton from "./IconButton";
 import { useState } from "react";
 import ListMenu from "./ListMenu";
+import Category from "./Category";
 
 const Drawer = ({ closeDrawer, open }) => {
   const [category, setCategory] = useState(false);
@@ -39,7 +40,7 @@ const Drawer = ({ closeDrawer, open }) => {
           </div>
         </TabsContainer>
 
-        {category ? <div>category</div> : <ListMenu />}
+        {category ? <Category /> : <ListMenu />}
       </Container>
     </DrawerContainer>
   );

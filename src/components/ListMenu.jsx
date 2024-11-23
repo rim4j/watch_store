@@ -5,6 +5,7 @@ import { CiDeliveryTruck } from "react-icons/ci";
 import { PiPhoneCallLight } from "react-icons/pi";
 import { FaBlog } from "react-icons/fa";
 
+import { Link } from "react-router-dom";
 import { CgDanger } from "react-icons/cg";
 
 const listMenuData = [
@@ -35,16 +36,17 @@ const listMenuData = [
   },
 ];
 
-const ListMenu = ({ className }) => {
+const ListMenu = () => {
   return (
-    <Container className={className}>
+    <Container>
       {listMenuData.map((item, i) => (
-        <ListMenuItem
-          key={i}
-          onClick={() => console.log("go to " + item.title)}
-          title={item.title}
-          icon={item.icon}
-        />
+        <Link key={i} to={item.path}>
+          <ListMenuItem
+            onClick={() => console.log("go to " + item.title)}
+            title={item.title}
+            icon={item.icon}
+          />
+        </Link>
       ))}
     </Container>
   );

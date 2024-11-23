@@ -2,3 +2,34 @@
   max-width: 1140px;
   margin: 0 auto;
 }
+.scale {
+  transition: all ease 0.2s;
+}
+.scale {
+  transition: all ease 0.2s;
+}
+.scale:hover {
+  transform: scale(1.1);
+  transition: all ease 0.2s;
+}
+.scale:active {
+  transform: scale(1);
+  transition: all ease 0.2s;
+}
+
+.transition {
+  transition: all ease 0.2;
+}
+.center {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .hidden-768px {
+    display: none !important;
+  }
+}
+.border-bottom {
+  border-bottom: 1px solid #e6e6e6;
+}

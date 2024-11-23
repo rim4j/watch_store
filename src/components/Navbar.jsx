@@ -9,6 +9,7 @@ import Logo from "./../assets/png/main_logo.png";
 
 import styled from "styled-components";
 import ListMenu from "./ListMenu";
+import Category from "./Category";
 
 const Navbar = ({ openDrawer }) => {
   const numInCart = "0";
@@ -23,7 +24,7 @@ const Navbar = ({ openDrawer }) => {
           icon={<CiMenuFries color='#333' size='24px' />}
         />
 
-        <img className='logo' src={Logo} alt='' />
+        <img className='logo' src={Logo} alt='logo' />
         <SearchInputContainer className='hiddenSearch'>
           <input
             type='text'
@@ -36,13 +37,11 @@ const Navbar = ({ openDrawer }) => {
         <IconContainer>
           <IconButton
             onClick={() => console.log("icon button")}
-            backgroundColor='#fff'
             icon={<FiUser color='#333' size='24px' />}
           />
           <div className=' hidden-fav'>
             <IconButton
               onClick={() => console.log("icon button")}
-              backgroundColor='#fff'
               icon={<CiHeart color='#333' size='24px' />}
             />
           </div>
@@ -55,12 +54,19 @@ const Navbar = ({ openDrawer }) => {
         </IconContainer>
       </Container>
 
-      <ListMenu className='hiddenMenu' />
+      <div className='flex hiddenMenu'>
+        <Category />
+        <ListMenu />
+      </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  .flex {
+    display: flex;
+    align-items: center;
+  }
   @media (max-width: 768px) {
     .hiddenMenu {
       display: none;
@@ -102,11 +108,12 @@ const IconContainer = styled.div`
 const SearchInputContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  border: 1px solid #e6e6e6;
+  /* border: 1px solid #e6e6e6; */
   border-radius: 100px;
   width: 50%;
   align-items: center;
+  padding-right: 10px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
 
   .search-input {
     outline: none;
