@@ -5,6 +5,7 @@ import {
   LoginPage,
   ProductsPage,
   SingleProductPage,
+  ErrorPage,
 } from "./pages";
 import { ErrorElement } from "./components";
 import "./app.css";
@@ -14,7 +15,7 @@ const router = createBrowserRouter(
     {
       path: "/",
       element: <HomeLayout />,
-      //  errorElement: <Error />,
+      errorElement: <ErrorPage />,
       children: [
         {
           index: true,
@@ -36,7 +37,7 @@ const router = createBrowserRouter(
     {
       path: "/login",
       element: <LoginPage />,
-      // errorElement: <Error />,
+      errorElement: <ErrorPage />,
     },
   ],
   {
