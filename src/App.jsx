@@ -10,6 +10,10 @@ import {
 import { ErrorElement } from "./components";
 import "./app.css";
 
+//loaders
+
+//actions
+
 const router = createBrowserRouter(
   [
     {

@@ -3,10 +3,10 @@ import { CiMenuFries } from "react-icons/ci";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import CategoryItem from "./CategoryItem";
 
-const Category = ({ className }) => {
+const Category = () => {
   return (
     <Wrapper>
-      <div className={`${className} containerButton`}>
+      <div className='containerButton'>
         <div className='center'>
           <CiMenuFries />
           <span>همه محصولات</span>

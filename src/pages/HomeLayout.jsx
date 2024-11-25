@@ -1,5 +1,5 @@
 import { Outlet, useNavigation } from "react-router-dom";
-import { Navbar, Drawer } from "../components";
+import { Navbar, Drawer, Loading } from "../components";
 import { useState } from "react";
 
 const HomeLayout = () => {
@@ -18,7 +18,7 @@ const HomeLayout = () => {
       <Drawer closeDrawer={toggleDrawer} open={openDrawer} />
 
       {isPageLoading ? (
-        <p>loading</p>
+        <Loading />
       ) : (
         <section>
           <Outlet />
