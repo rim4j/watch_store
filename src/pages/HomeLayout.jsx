@@ -1,24 +1,31 @@
-import { Outlet, useNavigation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Navbar, Drawer, Loading } from "../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getHomeItems } from "../features/home/homeSlice";
 
 const HomeLayout = () => {
-  const navigation = useNavigation();
   const [openDrawer, setOpenDrawer] = useState(false);
-
-  const isPageLoading = navigation.state === "loading";
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.home);
 
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
+
+  useEffect(() => {
+    dispatch(getHomeItems());
+  }, []);
 
   return (
     <div>
       <Navbar openDrawer={toggleDrawer} />
       <Drawer closeDrawer={toggleDrawer} open={openDrawer} />
 
-      {isPageLoading ? (
-        <Loading />
+      {isLoading ? (
+        <div className='section section-center'>
+          <Loading />
+        </div>
       ) : (
         <section>
           <Outlet />
