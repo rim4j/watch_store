@@ -4,7 +4,7 @@ const LandingPage = () => {
   const { sliders } = useSelector((state) => state.home);
   return (
     <div>
-      <div className='center margin-top-sm'>
+      <div className='center margin-top-lg'>
         <Slider images={sliders} />
       </div>
     </div>

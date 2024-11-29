@@ -29,6 +29,12 @@
 .margin-top-sm {
   margin-top: 2rem;
 }
+.margin-top-md {
+  margin-top: 4rem;
+}
+.margin-top-lg {
+  margin-top: 8rem;
+}
 .section {
   padding: 5rem 0;
 }

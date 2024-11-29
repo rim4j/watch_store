@@ -2,8 +2,11 @@ import styled from "styled-components";
 import { CiMenuFries } from "react-icons/ci";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import CategoryItem from "./CategoryItem";
+import { useSelector } from "react-redux";
 
 const Category = () => {
+  const { categories } = useSelector((state) => state.home);
+
   return (
     <Wrapper>
       <div className='containerButton'>
@@ -14,13 +17,16 @@ const Category = () => {
         <MdKeyboardDoubleArrowDown />
       </div>
       <div className='dialog '>
-        <CategoryItem />
-        <div className='border-bottom' />
-        <CategoryItem />
-        <div className='border-bottom' />
-        <CategoryItem />
-        <div className='border-bottom' />
-        <CategoryItem />
+        {categories.map((item, i) => (
+          <>
+            <CategoryItem key={i} title={item.title} image={item.image} />
+            {categories.length - 1 === i ? (
+              <div />
+            ) : (
+              <div className='border-bottom' />
+            )}
+          </>
+        ))}
       </div>
     </Wrapper>
   );
