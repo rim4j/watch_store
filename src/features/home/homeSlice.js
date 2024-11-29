@@ -9,7 +9,7 @@ const defaultState = {
   most_seller_products: [],
   newest_products: [],
   banner: {},
-  isLoading: true,
+  isLoading: false,
 };
 
 export const getHomeItems = createAsyncThunk(

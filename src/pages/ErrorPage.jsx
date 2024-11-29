@@ -1,11 +1,10 @@
 import { useRouteError, Link } from "react-router-dom";
-import styled from "styled-components";
 import { Button } from "../components";
 const Error = () => {
   const error = useRouteError();
   if (error.status === 404)
     return (
-      <Container>
+      <div className='center-item'>
         <div>
           <p>404</p>
           <h1>صفحه ای یافت نشد.</h1>
@@ -15,7 +14,7 @@ const Error = () => {
             </Link>
           </div>
         </div>
-      </Container>
+      </div>
     );
 
   return (
@@ -25,10 +24,4 @@ const Error = () => {
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
 export default Error;

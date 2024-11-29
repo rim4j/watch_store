@@ -23,7 +23,7 @@ const HomeLayout = () => {
       <Drawer closeDrawer={toggleDrawer} open={openDrawer} />
 
       {isLoading ? (
-        <div className='section section-center'>
+        <div className='center-item'>
           <Loading />
         </div>
       ) : (

@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
-const Button = ({ title, onClick, outline }) => {
+const Button = ({ title, onClick, outline, loading }) => {
   return (
     <Container className='scale ' onClick={onClick}>
-      <div className={outline ? "outline" : "default"}>{title}</div>
+      <div className={outline ? "outline" : "default"}>
+        {loading ? <div className='loading-sm' /> : title}
+      </div>
     </Container>
   );
 };
@@ -11,13 +13,14 @@ const Button = ({ title, onClick, outline }) => {
 const Container = styled.div`
   background-color: var(--color-accent);
   color: #fff;
-  text-align: center;
   font-size: 14px;
   cursor: pointer;
   transition: all ease 0.2s;
   display: inline-block;
   border-radius: 10px;
   border: 2px solid var(--color-accent);
+  width: 150px;
+  height: 50px;
 
   &:hover {
     filter: brightness(110%);
@@ -30,6 +33,11 @@ const Container = styled.div`
     padding: 10px 20px 10px 20px;
     border-radius: 10px;
     transition: all ease 0.2s;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
       filter: brightness(130%);
@@ -46,6 +54,11 @@ const Container = styled.div`
     padding: 10px 20px 10px 20px;
     border-radius: 10px;
     transition: all ease 0.2s;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
       background-color: var(--color-accent);
