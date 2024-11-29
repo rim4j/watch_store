@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { homeUrl } from "../../utils/constants";
+import { homeUrl } from "../../utils/url";
 
 const defaultState = {
   sliders: [],

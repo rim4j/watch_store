@@ -24,6 +24,10 @@
 .center {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+.margin-top-sm {
+  margin-top: 2rem;
 }
 .section {
   padding: 5rem 0;

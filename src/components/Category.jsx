@@ -29,6 +29,7 @@ const Category = () => {
 const Wrapper = styled.div`
   position: relative;
   transition: all ease 0.2s;
+  z-index: 10;
   .dialog {
     position: absolute;
     border: 1px solid #e6e6e6;

@@ -5,3 +5,4 @@ export { default as Drawer } from "./Drawer";
 export { default as ListMenu } from "./ListMenu";
 export { default as Button } from "./Button";
 export { default as Loading } from "./Loading";
+export { default as Slider } from "./Slider";
