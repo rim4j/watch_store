@@ -44,7 +44,7 @@ select {
 h1,
 h2,
 h3 {
-  color: var(--color-heading);
+  color: #000;
   margin-bottom: 1rem;
   line-height: 1.1;
 }

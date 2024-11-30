@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { CiMenuFries } from "react-icons/ci";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
@@ -18,14 +19,14 @@ const Category = () => {
       </div>
       <div className='dialog '>
         {categories.map((item, i) => (
-          <>
-            <CategoryItem key={i} title={item.title} image={item.image} />
+          <React.Fragment key={i}>
+            <CategoryItem title={item.title} image={item.image} />
             {categories.length - 1 === i ? (
               <div />
             ) : (
               <div className='border-bottom' />
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </Wrapper>
