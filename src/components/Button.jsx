@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-const Button = ({ title, onClick, outline, loading }) => {
+const Button = ({ title, onClick, outline, loading, icon }) => {
   return (
     <Container className='scale ' onClick={onClick}>
       <div className={outline ? "outline" : "default"}>
         {loading ? <div className='loading-sm' /> : title}
+        {icon && <span>{icon}</span>}
       </div>
     </Container>
   );
@@ -21,6 +22,11 @@ const Container = styled.div`
   border: 2px solid var(--color-accent);
   width: 150px;
   height: 50px;
+  span {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+  }
 
   &:hover {
     filter: brightness(110%);

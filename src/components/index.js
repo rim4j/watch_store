@@ -8,3 +8,4 @@ export { default as Loading } from "./Loading";
 export { default as Slider } from "./Slider";
 export { default as DescIcon } from "./DescIcon";
 export { default as ListDesc } from "./ListDesc";
+export { default as Card } from "./Card";
