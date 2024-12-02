@@ -9,3 +9,4 @@ export { default as Slider } from "./Slider";
 export { default as DescIcon } from "./DescIcon";
 export { default as ListDesc } from "./ListDesc";
 export { default as Card } from "./Card";
+export { default as AccordionApp } from "./AccordionApp";

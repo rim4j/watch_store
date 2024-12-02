@@ -1,12 +1,16 @@
 import { useSelector } from "react-redux";
-import { Button, Card, ListDesc, Slider } from "./../components";
+import { AccordionApp, Button, Card, ListDesc, Slider } from "./../components";
 import { AppStrings } from "../utils/strings";
 import { FaArrowLeft } from "react-icons/fa";
+import question from "./../assets/svg/questions.svg";
+import { accordionData } from "./../utils/strings";
 
 import styled from "styled-components";
 
 const LandingPage = () => {
-  const { sliders, most_seller_products } = useSelector((state) => state.home);
+  const { sliders, most_seller_products, amazing_products, newest_products } =
+    useSelector((state) => state.home);
+
   return (
     <Wrapper>
       <div className='center margin-top-lg'>
@@ -18,20 +22,55 @@ const LandingPage = () => {
 
       {/* top sells */}
       <h3>{AppStrings.topSells}</h3>
-      <div className='most-seller-container'>
+      <div className='products-container'>
         {most_seller_products.map((item, i) => (
           <Card key={i} {...item} />
         ))}
       </div>
+
       <div className='btn-container'>
         <Button title='مشاهده همه' outline icon={<FaArrowLeft />} />
+      </div>
+
+      {/* amazing products */}
+      <h3>{AppStrings.amazing}</h3>
+      <div className='products-container'>
+        {amazing_products.map((item, i) => (
+          <Card key={i} {...item} />
+        ))}
+      </div>
+
+      <div className='btn-container'>
+        <Button title='مشاهده همه' outline icon={<FaArrowLeft />} />
+      </div>
+
+      {/* newest products */}
+      <h3>{AppStrings.newestProduct}</h3>
+      <div className='products-container'>
+        {newest_products.map((item, i) => (
+          <Card key={i} {...item} />
+        ))}
+      </div>
+
+      <div className='btn-container'>
+        <Button title='مشاهده همه' outline icon={<FaArrowLeft />} />
+      </div>
+
+      {/* accordion */}
+      <div className='question-container'>
+        <img src={question} alt='سوالات' />
+        <div>
+          {accordionData.map((item, i) => (
+            <AccordionApp key={i} title={item.title} content={item.content} />
+          ))}
+        </div>
       </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  .most-seller-container {
+  .products-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4rem;
@@ -48,6 +87,20 @@ const Wrapper = styled.div`
   .btn-container {
     text-align: left;
     margin-left: 10px;
+  }
+  .question-container {
+    display: flex;
+    align-items: center;
+    img {
+      width: 50rem;
+      height: 50rem;
+    }
+    @media screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 `;
 
