@@ -36,6 +36,14 @@ const Wrapper = styled.div`
     grid-template-columns: repeat(3, 1fr);
     gap: 4rem;
     margin-bottom: 4rem;
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    @media screen and (max-width: 500px) {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 4rem;
+    }
   }
   .btn-container {
     text-align: left;
