@@ -91,6 +91,7 @@ const Wrapper = styled.div`
   .question-container {
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
     img {
       width: 50rem;
       height: 50rem;

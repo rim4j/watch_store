@@ -21,6 +21,7 @@
   background-color: var(--color-primary);
   color: #fff;
 }
+
 html {
   font-size: 62.5%;
 }
@@ -35,6 +36,8 @@ body {
   color: var(--color-body);
   font-size: 2.4rem;
   line-height: 1.5;
+  margin: 0;
+  padding: 0;
 }
 input,
 textarea,

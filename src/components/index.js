@@ -10,3 +10,4 @@ export { default as DescIcon } from "./DescIcon";
 export { default as ListDesc } from "./ListDesc";
 export { default as Card } from "./Card";
 export { default as AccordionApp } from "./AccordionApp";
+export { default as Footer } from "./Footer";

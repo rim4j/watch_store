@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Navbar, Drawer, Loading } from "../components";
+import { Navbar, Drawer, Loading, Footer } from "../components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHomeItems } from "../features/home/homeSlice";
@@ -19,16 +19,21 @@ const HomeLayout = () => {
 
   return (
     <div>
-      <Navbar openDrawer={toggleDrawer} />
-      <Drawer closeDrawer={toggleDrawer} open={openDrawer} />
+      <div className='container'>
+        <Navbar openDrawer={toggleDrawer} />
+        <Drawer closeDrawer={toggleDrawer} open={openDrawer} />
+      </div>
 
       {isLoading ? (
-        <div className='center-item'>
+        <div className=' container center-item'>
           <Loading />
         </div>
       ) : (
         <section>
-          <Outlet />
+          <div className='container'>
+            <Outlet />
+          </div>
+          <Footer />
         </section>
       )}
     </div>
