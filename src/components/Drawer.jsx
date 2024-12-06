@@ -96,7 +96,7 @@ const DrawerContainer = styled.div`
 
   .overlayOpen {
     opacity: 1;
-    z-index: 0;
+    z-index: 100;
     visibility: visible;
   }
 

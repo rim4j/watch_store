@@ -95,6 +95,13 @@ const Container = styled.div`
     width: 200px;
     object-fit: cover;
   }
+
+  @media (max-width: 768px) {
+    .logo {
+      width: 100px;
+      object-fit: cover;
+    }
+  }
 `;
 const IconContainer = styled.div`
   display: flex;

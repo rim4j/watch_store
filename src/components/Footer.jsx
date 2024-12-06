@@ -62,7 +62,7 @@ const Footer = () => {
   return (
     <Wrapper>
       <Container>
-        <div>
+        <LogoContainer>
           <Logo>
             <img src={logo} alt='' />
             <div className='title-container'>
@@ -73,11 +73,11 @@ const Footer = () => {
               <p>www.watchstore.ir</p>
             </div>
           </Logo>
-          <div>
+          <div className='detail-container'>
             <p className='details-watch'>{AppStrings.detailsWatch}</p>
             <p className='time-shop'>{AppStrings.timeShop}</p>
           </div>
-        </div>
+        </LogoContainer>
         <div className='footer-col'>
           <h1>دسترسی سریع</h1>
           {col1.map((item, i) => (
@@ -102,7 +102,7 @@ const Footer = () => {
 const Wrapper = styled.div`
   background: linear-gradient(#e6e6e6, #fff);
   height: 200px;
-
+  width: 100%;
   padding: 4rem;
 
   .details-watch {
@@ -118,10 +118,33 @@ const Wrapper = styled.div`
   }
 `;
 
+const LogoContainer = styled.div``;
+
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 4rem;
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+  }
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    .footer-col {
+      text-align: center;
+    }
+  }
+
+  .detail-container {
+    padding: 4rem;
+  }
   .footer-col {
     margin: 20px;
     h1 {
@@ -147,6 +170,11 @@ const Logo = styled.div`
   display: flex;
   align-items: center;
   margin-top: 20px;
+  @media screen and (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+  }
+
   .title {
     display: flex;
   }

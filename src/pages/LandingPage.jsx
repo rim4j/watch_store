@@ -101,6 +101,10 @@ const Wrapper = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      img {
+        width: 30rem;
+        height: 30rem;
+      }
     }
   }
 `;

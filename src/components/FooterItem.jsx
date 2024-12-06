@@ -14,6 +14,9 @@ const Container = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 500px) {
+  }
   p {
     margin-right: 10px;
   }
