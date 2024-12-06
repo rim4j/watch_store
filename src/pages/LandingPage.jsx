@@ -6,6 +6,7 @@ import question from "./../assets/svg/questions.svg";
 import { accordionData } from "./../utils/strings";
 
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   const { sliders, most_seller_products, amazing_products, newest_products } =
@@ -24,7 +25,9 @@ const LandingPage = () => {
       <h3>{AppStrings.topSells}</h3>
       <div className='products-container'>
         {most_seller_products.map((item, i) => (
-          <Card key={i} {...item} />
+          <Link key={i} to={`products/${item.id}`}>
+            <Card {...item} />
+          </Link>
         ))}
       </div>
 
@@ -36,7 +39,9 @@ const LandingPage = () => {
       <h3>{AppStrings.amazing}</h3>
       <div className='products-container'>
         {amazing_products.map((item, i) => (
-          <Card key={i} {...item} />
+          <Link key={i} to={`products/${item.id}`}>
+            <Card {...item} />
+          </Link>
         ))}
       </div>
 
@@ -48,7 +53,9 @@ const LandingPage = () => {
       <h3>{AppStrings.newestProduct}</h3>
       <div className='products-container'>
         {newest_products.map((item, i) => (
-          <Card key={i} {...item} />
+          <Link key={i} to={`products/${item.id}`}>
+            <Card {...item} />
+          </Link>
         ))}
       </div>
 

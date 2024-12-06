@@ -85,7 +85,7 @@ const Container = styled.div`
   }
   .price {
     font-size: 12px;
-    color: var(--color--body);
+    color: var(--color-body);
     text-decoration: line-through;
   }
 `;

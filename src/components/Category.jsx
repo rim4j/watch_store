@@ -4,6 +4,7 @@ import { CiMenuFries } from "react-icons/ci";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import CategoryItem from "./CategoryItem";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Category = () => {
   const { categories } = useSelector((state) => state.home);
@@ -13,7 +14,9 @@ const Category = () => {
       <div className='containerButton'>
         <div className='center'>
           <CiMenuFries />
-          <span>همه محصولات</span>
+          <Link to='products'>
+            <span>همه محصولات</span>
+          </Link>
         </div>
         <MdKeyboardDoubleArrowDown />
       </div>
@@ -59,6 +62,9 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     cursor: pointer;
+    span {
+      color: white;
+    }
 
     span {
       font-size: 14px;
