@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import IconButton from "./IconButton";
 import { CiMenuFries } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
@@ -13,6 +14,16 @@ import Category from "./Category";
 
 const Navbar = ({ openDrawer }) => {
   const numInCart = "0";
+  const [scrollY, setScrollY] = useState(0);
+
+  const handleScrollY = () => {
+    setScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollY);
+    return () => window.removeEventListener("scroll", handleScrollY);
+  }, [scrollY]);
 
   return (
     <Wrapper>
@@ -36,7 +47,7 @@ const Navbar = ({ openDrawer }) => {
 
         <IconContainer>
           <IconButton
-            onClick={() => console.log("icon button")}
+            onClick={() => console.log(scrollY)}
             icon={<FiUser color='#333' size='24px' />}
           />
           <div className=' hidden-fav'>
@@ -54,7 +65,7 @@ const Navbar = ({ openDrawer }) => {
         </IconContainer>
       </Container>
 
-      <div className='flex hiddenMenu'>
+      <div className={`flex hiddenMenu ${scrollY > 100 && "fixed"}`}>
         <Category />
         <ListMenu />
       </div>

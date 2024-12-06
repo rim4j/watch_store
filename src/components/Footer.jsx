@@ -95,6 +95,7 @@ const Footer = () => {
           <img src={eNamad} alt='' />
         </div>
       </Container>
+      <p>© تمام حقوق مادی و معنوی این سایت متعلق به گالری می‌باشد.</p>
     </Wrapper>
   );
 };
@@ -104,6 +105,11 @@ const Wrapper = styled.div`
   height: 200px;
   width: 100%;
   padding: 4rem;
+  p {
+    font-size: 12px;
+    color: black;
+    text-align: center;
+  }
 
   .details-watch {
     font-size: 14px;
