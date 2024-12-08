@@ -3,7 +3,7 @@ import axios from "axios";
 import { detailsProduct } from "../../utils/url";
 
 const defaultState = {
-  isLoading: false,
+  isLoading: true,
   detailsProduct: {},
 };
 
