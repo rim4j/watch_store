@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const Button = ({ title, onClick, outline, loading, icon }) => {
+const Button = ({ title, onClick, outline, loading, icon, full }) => {
   return (
-    <Container className='scale ' onClick={onClick}>
+    <Container className={`scale ${full && "full"}`} onClick={onClick}>
       <div className={outline ? "outline" : "default"}>
         {loading ? <div className='loading-sm' /> : title}
         {icon && <span>{icon}</span>}
@@ -20,8 +20,9 @@ const Container = styled.div`
   display: inline-block;
   border-radius: 10px;
   border: 2px solid var(--color-accent);
-  width: 150px;
   height: 50px;
+  width: 150px;
+
   span {
     margin-right: 10px;
     display: flex;

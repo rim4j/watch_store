@@ -86,3 +86,6 @@ p {
 a {
   text-decoration: none;
 }
+.width-btn {
+  width: 150px;
+}

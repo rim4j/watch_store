@@ -12,3 +12,4 @@ export { default as Card } from "./Card";
 export { default as AccordionApp } from "./AccordionApp";
 export { default as Footer } from "./Footer";
 export { default as FooterItem } from "./FooterItem";
+export { default as Divider } from "./Divider";
