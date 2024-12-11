@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getDetailsProduct } from "../features/products/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -8,6 +8,8 @@ import Zoom from "react-medium-image-zoom";
 import { Button, Loading, Divider } from "../components";
 import { formatPrice } from "../utils/formatPrice";
 import { MdOutlineDoneAll } from "react-icons/md";
+import { VscPercentage } from "react-icons/vsc";
+import DOMPurify from "dompurify";
 
 const SingleProductPage = () => {
   const { detailsProduct, isLoading } = useSelector((state) => state.products);
@@ -38,66 +40,82 @@ const SingleProductPage = () => {
   }
 
   return (
-    <Container>
-      <div>
-        <Zoom>
-          <img src={detailsProduct.image} alt={detailsProduct.title} />
-        </Zoom>
-      </div>
-      <TitleContainer>
-        <h1>{detailsProduct.title}</h1>
-        <div className='review'>
-          <p className='review-title'>بازدید {detailsProduct.review}</p>
-          <p className='comment-title'>
-            {detailsProduct.comments?.length} دیدگاه
-          </p>
+    <div>
+      <Container>
+        <div>
+          <Zoom>
+            <img src={detailsProduct.image} alt={detailsProduct.title} />
+          </Zoom>
         </div>
-        <p className='color-title'>رنگ : {selectColor.title}</p>
-        <div className='colors-container'>
-          <div className='colors-flex-container'>
-            {detailsProduct.colors?.map((item, i) => (
-              <div
-                key={i}
-                onClick={() => {
-                  setSelectColor(item);
-                }}
-                className={
-                  selectColor.code === item.code
-                    ? "color-item-active"
-                    : "color-item"
-                }
-                style={{ background: item.code }}
-              />
-            ))}
+        <TitleContainer>
+          <h1>{detailsProduct.title}</h1>
+          <div className='review'>
+            <p className='review-title'>بازدید {detailsProduct.review}</p>
+            <p className='comment-title'>
+              {detailsProduct.comments?.length} دیدگاه
+            </p>
           </div>
-        </div>
-      </TitleContainer>
-      <AddToCartContainer>
-        <div className='details-price'>
-          {detailsProduct.discount === 0 ? (
-            <div />
-          ) : (
-            <p className='discount'>{`${detailsProduct.discount}%`}</p>
-          )}
-          <div>
-            <p className='discount-price'>{`${fDiscountPrice} تومان`}</p>
+          <p className='color-title'>رنگ : {selectColor.title}</p>
+          <div className='colors-container'>
+            <div className='colors-flex-container'>
+              {detailsProduct.colors?.map((item, i) => (
+                <div
+                  key={i}
+                  onClick={() => {
+                    setSelectColor(item);
+                  }}
+                  className={
+                    selectColor.code === item.code
+                      ? "color-item-active"
+                      : "color-item"
+                  }
+                  style={{ background: item.code }}
+                />
+              ))}
+            </div>
+          </div>
+        </TitleContainer>
+        <AddToCartContainer>
+          <div className='details-price'>
             {detailsProduct.discount === 0 ? (
               <div />
             ) : (
-              <p className='price'>{`${fprice} تومان`}</p>
+              <p className='discount'>
+                <VscPercentage size='18px' />
+                {`${detailsProduct.discount}`}
+              </p>
             )}
+            <div>
+              <p className='discount-price'>{`${fDiscountPrice} تومان`}</p>
+              {detailsProduct.discount === 0 ? (
+                <div />
+              ) : (
+                <p className='price'>{`${fprice} تومان`}</p>
+              )}
+            </div>
           </div>
-        </div>
-        <Button title='افزودن به سبد' full />
-        <div className='guaranty-container'>
-          <MdOutlineDoneAll size='20px' color='#000' />
-          <p className='guaranty-text'>{detailsProduct.guaranty}</p>
-        </div>
-        <Divider />
-        <p className='text-category'>{` دسته بندی : ${detailsProduct.category}`}</p>
-        <p className='text-category'>{`برند : ${detailsProduct.brand}`}</p>
-      </AddToCartContainer>
-    </Container>
+          <Button title='افزودن به سبد' full />
+          <div className='guaranty-container'>
+            <MdOutlineDoneAll size='20px' color='#000' />
+            <p className='guaranty-text'>{detailsProduct.guaranty}</p>
+          </div>
+          <Divider />
+          <p className='text-category'>{` دسته بندی : ${detailsProduct.category}`}</p>
+          <p className='text-category'>{`برند : ${detailsProduct.brand}`}</p>
+        </AddToCartContainer>
+      </Container>
+
+      {/* details */}
+      <DetailsContainer>
+        <h2>معرفی محصول</h2>
+        <div
+          dangerouslySetInnerHTML={{ __html: detailsProduct.description }}
+        ></div>
+        <div
+          dangerouslySetInnerHTML={{ __html: detailsProduct.discussion }}
+        ></div>
+      </DetailsContainer>
+    </div>
   );
 };
 
@@ -184,7 +202,7 @@ const AddToCartContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 8px;
     border-radius: 50px;
     font-size: 12px;
   }
@@ -210,6 +228,12 @@ const AddToCartContainer = styled.div`
   }
   .text-category {
     font-size: 12px;
+  }
+`;
+
+const DetailsContainer = styled.div`
+  .title {
+    font-size: 24px;
   }
 `;
 

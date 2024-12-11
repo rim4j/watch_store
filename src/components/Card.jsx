@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { formatPrice } from "./../utils/formatPrice";
+import { VscPercentage } from "react-icons/vsc";
 
 const Card = ({
   id,
@@ -26,7 +27,10 @@ const Card = ({
         {discount === 0 ? (
           <div />
         ) : (
-          <p className='discount'>{`${discount}%`}</p>
+          <p className='discount'>
+            <VscPercentage size='12px' />
+            {`${discount}`}
+          </p>
         )}
         <div>
           <p className='discount-price'>{`${fDiscountPrice} تومان`}</p>
@@ -70,14 +74,14 @@ const Container = styled.div`
   }
   .discount {
     background-color: var(--color-accent);
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    border-radius: 20px;
+    padding: 5px;
+    border-radius: 50px;
   }
   .discount-price {
     font-size: 14px;
