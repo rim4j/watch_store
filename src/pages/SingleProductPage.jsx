@@ -9,7 +9,7 @@ import { Button, Loading, Divider } from "../components";
 import { formatPrice } from "../utils/formatPrice";
 import { MdOutlineDoneAll } from "react-icons/md";
 import { VscPercentage } from "react-icons/vsc";
-import DOMPurify from "dompurify";
+import { FaUserCircle } from "react-icons/fa";
 
 const SingleProductPage = () => {
   const { detailsProduct, isLoading } = useSelector((state) => state.products);
@@ -109,11 +109,35 @@ const SingleProductPage = () => {
       <DetailsContainer>
         <h2>معرفی محصول</h2>
         <div
+          className='desc'
           dangerouslySetInnerHTML={{ __html: detailsProduct.description }}
         ></div>
         <div
+          className='desc'
           dangerouslySetInnerHTML={{ __html: detailsProduct.discussion }}
         ></div>
+        <Divider />
+        <h2 className='property-title'>مشخصات</h2>
+        {detailsProduct.properties.map((item, i) => (
+          <div key={i} className='properties-container'>
+            <p className='property'>{item.property}:</p>
+            <p className='value'>{item.value}</p>
+          </div>
+        ))}
+        <Divider />
+
+        <h2 className='property-title'>دیدگاه</h2>
+        {detailsProduct.comments.map((item, i) => (
+          <div key={i} className='comments-container'>
+            <div className='user-container'>
+              <FaUserCircle size='28px' />
+              <p className='user'>
+                {item.user === null ? "ناشناس" : item.user}
+              </p>
+            </div>
+            <p className='comment'>{item.body}</p>
+          </div>
+        ))}
       </DetailsContainer>
     </div>
   );
@@ -234,6 +258,53 @@ const AddToCartContainer = styled.div`
 const DetailsContainer = styled.div`
   .title {
     font-size: 24px;
+  }
+  .desc {
+    font-size: 14px;
+    line-height: 3rem;
+  }
+  .properties-container {
+    display: flex;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    align-items: center;
+
+    p {
+      font-size: 14px;
+    }
+  }
+  .property {
+    width: 20vw;
+  }
+  .property-title {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+  .comments-container {
+    display: flex;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    align-items: center;
+
+    p {
+      font-size: 14px;
+    }
+  }
+  .user-container {
+    display: flex;
+    align-items: center;
+    width: 20vw;
+  }
+  .user {
+    font-size: 14px;
+    margin-right: 1rem;
+  }
+  .comment {
+    width: 100%;
+    padding: 2rem;
+    border-radius: 2rem 0 2rem 0;
+    background-color: var(--color--light-grey);
+    color: black;
   }
 `;
 
