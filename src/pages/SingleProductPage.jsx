@@ -138,6 +138,14 @@ const SingleProductPage = () => {
             <p className='comment'>{item.body}</p>
           </div>
         ))}
+        <div className='comment-btn-container'>
+          <input
+            type='text'
+            className='input-comment'
+            placeholder='نظر خود را درباره این کالا با کاربران دیگر به اشتراک بگذارید ...'
+          />
+          <Button title='ثبت دیدگاه' />
+        </div>
       </DetailsContainer>
     </div>
   );
@@ -153,6 +161,7 @@ const Container = styled.div`
   padding: 4rem 0;
 `;
 const TitleContainer = styled.div`
+  margin-left: 2rem;
   h1 {
     font-size: 18px;
   }
@@ -305,6 +314,24 @@ const DetailsContainer = styled.div`
     border-radius: 2rem 0 2rem 0;
     background-color: var(--color--light-grey);
     color: black;
+  }
+  .comment-btn-container {
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .input-comment {
+    padding: 15px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    outline: none;
+    transition: all 0.3s ease;
+    &:focus {
+      transition: all 0.3s ease;
+      border-color: var(--color-accent);
+    }
   }
 `;
 
