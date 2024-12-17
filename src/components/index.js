@@ -14,3 +14,4 @@ export { default as Footer } from "./Footer";
 export { default as FooterItem } from "./FooterItem";
 export { default as Divider } from "./Divider";
 export { default as Modal } from "./Modal";
+export { default as Input } from "./Input";
