@@ -9,7 +9,8 @@ const Input = ({ placeholder, type, value, onChange, dir, phone }) => {
           style={dir ? { direction: "ltr" } : { direction: "rtl" }}
           value={value}
           onChange={onChange}
-          className={`input ${phone ? "borderPhone" : "borderRadius"}`}
+          className={`input ${phone ? "borderPhone" : "borderRadius"} 
+           `}
           type={type}
         />
         {phone && <p className='phone'>98+</p>}
@@ -28,6 +29,7 @@ const Container = styled.div`
   .borderRadius {
     border-radius: 8px;
   }
+
   .input {
     margin-top: 2rem;
     margin-bottom: 10px;

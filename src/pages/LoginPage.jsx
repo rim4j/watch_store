@@ -1,16 +1,32 @@
 import { useState } from "react";
 import styled from "styled-components";
 import logo from "./../assets/png/main_logo.png";
-import { Button, Input } from "../components";
+import { Button, ErrorMessage, Input } from "../components";
 
 const LoginPage = () => {
   const [phone, setPhone] = useState("");
+  const [errMessage, setErrMessage] = useState("");
+
   const setPhoneNumber = (phone) => {
     setPhone(phone);
   };
 
   const submitForm = () => {
-    console.log(`+98${phone}`);
+    if (!phone) {
+      setErrMessage("لطفا شماره موبایل را وارد کنید");
+      return;
+    }
+    if (phone[0] !== "9") {
+      setErrMessage("شماره موبایل باید با 9 شروع شود");
+      return;
+    }
+    if (phone.length !== 10) {
+      setErrMessage("شماره موبایل باید 10 رقمی باشد");
+      return;
+    } else {
+      setErrMessage("");
+      console.log(`+98${phone}`);
+    }
   };
 
   return (
@@ -23,11 +39,12 @@ const LoginPage = () => {
         <Input
           value={phone}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          type='text'
+          type='number'
           dir
           phone
           placeholder='لطفا شماره موبایل خود را وارد کنید '
         />
+        <ErrorMessage message={errMessage} />
         <div className='btn-container'>
           <Button title='ورود' full onClick={submitForm} />
         </div>
