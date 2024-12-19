@@ -42,67 +42,70 @@ const SingleProductPage = () => {
   return (
     <div>
       <Container>
-        <div>
-          <Zoom>
-            <img src={detailsProduct.image} alt={detailsProduct.title} />
-          </Zoom>
-        </div>
-        <TitleContainer>
-          <h1>{detailsProduct.title}</h1>
-          <div className='review'>
-            <p className='review-title'>بازدید {detailsProduct.review}</p>
-            <p className='comment-title'>
-              {detailsProduct.comments?.length} دیدگاه
-            </p>
+        <div className='res-width'>
+          <div>
+            <Zoom>
+              <img src={detailsProduct.image} alt={detailsProduct.title} />
+            </Zoom>
           </div>
-          <p className='color-title'>رنگ : {selectColor.title}</p>
-          <div className='colors-container'>
-            <div className='colors-flex-container'>
-              {detailsProduct.colors?.map((item, i) => (
-                <div
-                  key={i}
-                  onClick={() => {
-                    setSelectColor(item);
-                  }}
-                  className={
-                    selectColor.code === item.code
-                      ? "color-item-active"
-                      : "color-item"
-                  }
-                  style={{ background: item.code }}
-                />
-              ))}
-            </div>
-          </div>
-        </TitleContainer>
-        <AddToCartContainer>
-          <div className='details-price'>
-            {detailsProduct.discount === 0 ? (
-              <div />
-            ) : (
-              <p className='discount'>
-                <VscPercentage size='18px' />
-                {`${detailsProduct.discount}`}
+
+          <TitleContainer>
+            <h1>{detailsProduct.title}</h1>
+            <div className='review'>
+              <p className='review-title'>بازدید {detailsProduct.review}</p>
+              <p className='comment-title'>
+                {detailsProduct.comments?.length} دیدگاه
               </p>
-            )}
-            <div>
-              <p className='discount-price'>{`${fDiscountPrice} تومان`}</p>
+            </div>
+            <p className='color-title'>رنگ : {selectColor.title}</p>
+            <div className='colors-container'>
+              <div className='colors-flex-container'>
+                {detailsProduct.colors?.map((item, i) => (
+                  <div
+                    key={i}
+                    onClick={() => {
+                      setSelectColor(item);
+                    }}
+                    className={
+                      selectColor.code === item.code
+                        ? "color-item-active"
+                        : "color-item"
+                    }
+                    style={{ background: item.code }}
+                  />
+                ))}
+              </div>
+            </div>
+          </TitleContainer>
+          <AddToCartContainer>
+            <div className='details-price'>
               {detailsProduct.discount === 0 ? (
                 <div />
               ) : (
-                <p className='price'>{`${fprice} تومان`}</p>
+                <p className='discount'>
+                  <VscPercentage size='18px' />
+                  {`${detailsProduct.discount}`}
+                </p>
               )}
+              <div>
+                <p className='discount-price'>{`${fDiscountPrice} تومان`}</p>
+                {detailsProduct.discount === 0 ? (
+                  <div />
+                ) : (
+                  <p className='price'>{`${fprice} تومان`}</p>
+                )}
+              </div>
             </div>
-          </div>
-          <Button title='افزودن به سبد' full />
-          <div className='guaranty-container'>
-            <MdOutlineDoneAll size='20px' color='#000' />
-            <p className='guaranty-text'>{detailsProduct.guaranty}</p>
-          </div>
-          <Divider />
-          <p className='text-category'>{` دسته بندی : ${detailsProduct.category}`}</p>
-          <p className='text-category'>{`برند : ${detailsProduct.brand}`}</p>
-        </AddToCartContainer>
+            <Button title='افزودن به سبد' full />
+            <div className='guaranty-container'>
+              <MdOutlineDoneAll size='20px' color='#000' />
+              <p className='guaranty-text'>{detailsProduct.guaranty}</p>
+            </div>
+            <Divider />
+            <p className='text-category'>{` دسته بندی : ${detailsProduct.category}`}</p>
+            <p className='text-category'>{`برند : ${detailsProduct.brand}`}</p>
+          </AddToCartContainer>
+        </div>
       </Container>
 
       {/* details */}
@@ -152,13 +155,23 @@ const SingleProductPage = () => {
 };
 
 const LoadingContainer = styled.div`
-  /* height: 30vh; */
   padding-bottom: 4rem;
 `;
 
 const Container = styled.div`
   display: flex;
   padding: 4rem 0;
+  .res-width {
+    display: flex;
+  }
+
+  @media screen and (max-width: 768px) {
+    .res-width {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+    }
+  }
 `;
 const TitleContainer = styled.div`
   margin-left: 2rem;
@@ -192,6 +205,7 @@ const TitleContainer = styled.div`
     background-color: var(--color--light-grey);
     border-radius: 10px;
     display: inline-block;
+    margin-bottom: 1rem;
   }
   .colors-flex-container {
     display: flex;
@@ -218,7 +232,6 @@ const AddToCartContainer = styled.div`
   border-radius: 10px;
   margin: 0 auto;
   background-color: var(--color--light-grey);
-  width: 25vw;
 
   .details-price {
     display: flex;

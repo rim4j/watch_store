@@ -11,6 +11,7 @@ import Logo from "./../assets/png/main_logo.png";
 import styled from "styled-components";
 import ListMenu from "./ListMenu";
 import Category from "./Category";
+import { Link } from "react-router-dom";
 
 const Navbar = ({ openDrawer }) => {
   const numInCart = "0";
@@ -46,10 +47,12 @@ const Navbar = ({ openDrawer }) => {
         </SearchInputContainer>
 
         <IconContainer>
-          <IconButton
-            onClick={() => console.log(scrollY)}
-            icon={<FiUser color='#333' size='24px' />}
-          />
+          <Link to='/login'>
+            <IconButton
+              onClick={() => console.log(scrollY)}
+              icon={<FiUser color='#333' size='24px' />}
+            />
+          </Link>
           <div className=' hidden-fav'>
             <IconButton
               onClick={() => console.log("icon button")}
