@@ -6,6 +6,7 @@ import {
   ProductsPage,
   SingleProductPage,
   ErrorPage,
+  OtpPage,
 } from "./pages";
 import { ErrorElement } from "./components";
 import "./app.css";
@@ -41,6 +42,11 @@ const router = createBrowserRouter(
     {
       path: "/login",
       element: <LoginPage />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/otp",
+      element: <OtpPage />,
       errorElement: <ErrorPage />,
     },
   ],

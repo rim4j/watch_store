@@ -1,43 +1,34 @@
 import { useState } from "react";
 import styled from "styled-components";
-import logo from "./../assets/png/main_logo.png";
-import { Button, ErrorMessage, Input } from "../components";
-import { useNavigate } from "react-router-dom";
+import { Button, ErrorMessage, IconButton, Input } from "../components";
+import { useLocation, Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 
-const LoginPage = () => {
-  const [phone, setPhone] = useState("");
+const OtpPage = () => {
+  const {
+    state: { phone },
+  } = useLocation();
+
+  const [code, setCode] = useState("");
   const [errMessage, setErrMessage] = useState("");
-  const navigate = useNavigate();
 
-  const setPhoneNumber = (phone) => {
-    setPhone(phone);
+  const setPhoneNumber = (code) => {
+    setCode(code);
   };
 
   const submitForm = () => {
-    if (!phone) {
-      setErrMessage("لطفا شماره موبایل را وارد کنید");
-      return;
-    }
-    if (phone[0] !== "9") {
-      setErrMessage("شماره موبایل باید با 9 شروع شود");
-      return;
-    }
-    if (phone.length !== 10) {
-      setErrMessage("شماره موبایل باید 10 رقمی باشد");
-      return;
-    } else {
-      setErrMessage("");
-      console.log(`+98${phone}`);
-      navigate("/otp", { state: { phone } });
-    }
+    console.log(code);
   };
 
   return (
     <Wrapper>
       <Container>
-        <img src={logo} alt='' />
-        <p className='title'>ورود | ثبت نام</p>
-        <p className='placeholder'>سلام!</p>
+        <div className='logo-container'>
+          <Link to='/login'>
+            <IconButton icon={<FaArrowRight />} />
+          </Link>
+        </div>
+        <p className='title'>کد تایید را وارد کنید</p>
 
         <Input
           value={phone}
@@ -45,11 +36,11 @@ const LoginPage = () => {
           type='number'
           dir
           phone
-          placeholder='لطفا شماره موبایل خود را وارد کنید '
+          placeholder={`کد تایید برای شماره ${phone} پیامک شد.`}
         />
         <ErrorMessage message={errMessage} />
         <div className='btn-container'>
-          <Button title='ورود' full onClick={submitForm} />
+          <Button title='تایید' full onClick={submitForm} />
         </div>
 
         <p className='login-detail'>
@@ -74,7 +65,9 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 4rem;
-
+  .logo-container {
+    display: flex;
+  }
   img {
     width: 120px;
     object-fit: cover;
@@ -98,4 +91,4 @@ const Container = styled.div`
   }
 `;
 
-export default LoginPage;
+export default OtpPage;
