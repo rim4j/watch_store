@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button, ErrorMessage, IconButton, Input } from "../components";
 import { useLocation, Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
+import OtpInput from "react-otp-input";
 
 const OtpPage = () => {
   const {
@@ -12,12 +13,19 @@ const OtpPage = () => {
   const [code, setCode] = useState("");
   const [errMessage, setErrMessage] = useState("");
 
-  const setPhoneNumber = (code) => {
-    setCode(code);
-  };
-
   const submitForm = () => {
+    if (!code) {
+      setErrMessage("کد تایید را وارد کنید");
+      return;
+    }
+
+    if (code.length !== 4) {
+      setErrMessage("کد تایید باید 4 رقمی باشد");
+      return;
+    }
+
     console.log(code);
+    setErrMessage("");
   };
 
   return (
@@ -25,19 +33,34 @@ const OtpPage = () => {
       <Container>
         <div className='logo-container'>
           <Link to='/login'>
-            <IconButton icon={<FaArrowRight />} />
+            <IconButton icon={<FaArrowRight color='#333' />} />
           </Link>
         </div>
         <p className='title'>کد تایید را وارد کنید</p>
 
-        <Input
-          value={phone}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          type='number'
-          dir
-          phone
-          placeholder={`کد تایید برای شماره ${phone} پیامک شد.`}
-        />
+        <p className='placeholder'>کد تایید برای شماره {phone} پیامک شد.</p>
+        <div className='otp-container'>
+          <OtpInput
+            value={code}
+            onChange={setCode}
+            inputStyle={{
+              width: "50px",
+              height: "50px",
+              fontSize: "20px",
+              color: "#333",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              background: "#fff",
+              padding: "0",
+              margin: "5px",
+              direction: "ltr",
+              outline: "none",
+            }}
+            numInputs={4}
+            renderInput={(props) => <input className='otp-input' {...props} />}
+          />
+        </div>
+
         <ErrorMessage message={errMessage} />
         <div className='btn-container'>
           <Button title='تایید' full onClick={submitForm} />
@@ -82,12 +105,20 @@ const Container = styled.div`
 
   .btn-container {
     margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
   }
   .login-detail {
     font-size: 12px;
     color: black;
     text-align: center;
+  }
+  .otp-container {
+    margin: 0 auto;
+    direction: ltr;
+  }
+  .placeholder {
+    font-size: 12px;
+    margin-bottom: 2rem;
   }
 `;
 
