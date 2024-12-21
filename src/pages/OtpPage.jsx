@@ -7,11 +7,14 @@ import OtpInput from "react-otp-input";
 import axios from "axios";
 import { checkSmsCode } from "../utils/url";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { loginUser } from "./../features/user/userSlice";
 
 const OtpPage = () => {
   const {
     state: { phone },
   } = useLocation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [code, setCode] = useState("");
@@ -29,7 +32,7 @@ const OtpPage = () => {
       setLoading(false);
       if (res.data.result) {
         toast.success(res.data.message);
-        console.log(res);
+        dispatch(loginUser(res.data));
         navigate("/");
       }
     } catch (error) {
