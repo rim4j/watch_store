@@ -3,10 +3,14 @@ import styled from "styled-components";
 import logo from "./../assets/png/main_logo.png";
 import { Button, ErrorMessage, Input } from "../components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { sentSmsUrl } from "../utils/url";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [phone, setPhone] = useState("");
   const [errMessage, setErrMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const setPhoneNumber = (phone) => {
@@ -14,6 +18,21 @@ const LoginPage = () => {
   };
 
   const iraninianPattern = /^(\+98|0098|0)?9\d{9}$/;
+
+  const sentSms = async (phone) => {
+    try {
+      setLoading(true);
+      const res = await axios.post(sentSmsUrl, { mobile: phone });
+      setLoading(false);
+      if (res.data.result) {
+        toast.success(`کد ورود شما ${res.data.data.code} است.`);
+        navigate("/otp", { state: { phone } });
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.response.data.message);
+    }
+  };
 
   const submitForm = () => {
     if (!phone) {
@@ -25,8 +44,7 @@ const LoginPage = () => {
       return;
     } else {
       setErrMessage("");
-      console.log(`+98${phone}`);
-      navigate("/otp", { state: { phone } });
+      sentSms(phone);
     }
   };
 
@@ -47,7 +65,7 @@ const LoginPage = () => {
         />
         <ErrorMessage message={errMessage} />
         <div className='btn-container'>
-          <Button title='ورود' full onClick={submitForm} />
+          <Button title='ورود' full onClick={submitForm} loading={loading} />
         </div>
 
         <p className='login-detail'>
