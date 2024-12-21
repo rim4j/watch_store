@@ -1,17 +1,43 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Button, ErrorMessage, IconButton } from "../components";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import OtpInput from "react-otp-input";
+import axios from "axios";
+import { checkSmsCode } from "../utils/url";
+import { toast } from "react-toastify";
 
 const OtpPage = () => {
   const {
     state: { phone },
   } = useLocation();
+  const navigate = useNavigate();
 
   const [code, setCode] = useState("");
   const [errMessage, setErrMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const sentCode = async (code) => {
+    const data = {
+      mobile: phone,
+      code: code.toString(),
+    };
+    try {
+      setLoading(true);
+      const res = await axios.post(checkSmsCode, data);
+      setLoading(false);
+      if (res.data.result) {
+        toast.success(res.data.message);
+        console.log(res);
+        navigate("/");
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.response.data.message);
+      console.log(error);
+    }
+  };
 
   const submitForm = () => {
     if (!code) {
@@ -24,7 +50,7 @@ const OtpPage = () => {
       return;
     }
 
-    console.log(code);
+    sentCode(code);
     setErrMessage("");
   };
 
@@ -63,7 +89,7 @@ const OtpPage = () => {
 
         <ErrorMessage message={errMessage} />
         <div className='btn-container'>
-          <Button title='تایید' full onClick={submitForm} />
+          <Button title='تایید' full onClick={submitForm} loading={loading} />
         </div>
 
         <p className='login-detail'>

@@ -4,3 +4,5 @@ export const detailsProduct =
 
 export const sentSmsUrl =
   "https://watchstore.sasansafari.com/public/api/v1/send_sms";
+export const checkSmsCode =
+  "https://watchstore.sasansafari.com/public/api/v1/check_sms_code";
