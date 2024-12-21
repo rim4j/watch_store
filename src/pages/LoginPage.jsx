@@ -13,17 +13,15 @@ const LoginPage = () => {
     setPhone(phone);
   };
 
+  const iraninianPattern = /^(\+98|0098|0)?9\d{9}$/;
+
   const submitForm = () => {
     if (!phone) {
       setErrMessage("لطفا شماره موبایل را وارد کنید");
       return;
     }
-    if (phone[0] !== "9") {
-      setErrMessage("شماره موبایل باید با 9 شروع شود");
-      return;
-    }
-    if (phone.length !== 10) {
-      setErrMessage("شماره موبایل باید 10 رقمی باشد");
+    if (!iraninianPattern.test(phone)) {
+      setErrMessage("شماره موبایل نامعتبر است");
       return;
     } else {
       setErrMessage("");

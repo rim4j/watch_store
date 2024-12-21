@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Button, ErrorMessage, IconButton, Input } from "../components";
+import { Button, ErrorMessage, IconButton } from "../components";
 import { useLocation, Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import OtpInput from "react-otp-input";
@@ -88,6 +88,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 4rem;
+
   .logo-container {
     display: flex;
   }
