@@ -5,3 +5,4 @@ export { default as ProductsPage } from "./ProductsPage";
 export { default as SingleProductPage } from "./SingleProductPage";
 export { default as ErrorPage } from "./ErrorPage";
 export { default as OtpPage } from "./OtpPage";
+export { default as ProfilePage } from "./ProfilePage";

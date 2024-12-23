@@ -12,10 +12,12 @@ import styled from "styled-components";
 import ListMenu from "./ListMenu";
 import Category from "./Category";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = ({ openDrawer }) => {
   const numInCart = "0";
   const [scrollY, setScrollY] = useState(0);
+  const { token } = useSelector((state) => state.user);
 
   const handleScrollY = () => {
     setScrollY(window.scrollY);
@@ -47,9 +49,9 @@ const Navbar = ({ openDrawer }) => {
         </SearchInputContainer>
 
         <IconContainer>
-          <Link to='/login'>
+          <Link to={token === null ? "/login" : "/profile"}>
             <IconButton
-              onClick={() => console.log(scrollY)}
+              // onClick={() => console.log(scrollY)}
               icon={<FiUser color='#333' size='24px' />}
             />
           </Link>
