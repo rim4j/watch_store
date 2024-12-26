@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { logOut } from "./../features/user/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FiUser } from "react-icons/fi";
 import { FaLocationDot } from "react-icons/fa6";
@@ -22,10 +22,12 @@ const ProfilePage = () => {
       <h1 className='title'> خوش آمدید !</h1>
 
       <div className='cart-container'>
-        <div className='card scale'>
-          <FiUser size='50px' color='#000' />
-          <p>اطلاعات حساب کاربری</p>
-        </div>
+        <Link to='user'>
+          <div className='card scale'>
+            <FiUser size='50px' color='#000' />
+            <p>اطلاعات حساب کاربری</p>
+          </div>
+        </Link>
         <div className='card scale'>
           <FaLocationDot size='50px' color='#000' />
           <p> آدرس ها</p>
@@ -53,8 +55,8 @@ const ProfilePage = () => {
 
 const Container = styled.div`
   .title {
-    font-size: 18px;
-    margin: 4rem 0 4rem 0;
+    font-size: 22px;
+    margin: 8rem 0 8rem 0;
   }
   .cart-container {
     display: grid;
@@ -81,6 +83,9 @@ const Container = styled.div`
     cursor: pointer;
     color: var(--color-body);
     transition: all ease 0.3s;
+    p {
+      margin-top: 2rem;
+    }
     &:hover {
       transition: all ease 0.3s;
       color: var(--color-accent);

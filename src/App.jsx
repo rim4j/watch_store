@@ -8,6 +8,7 @@ import {
   ErrorPage,
   OtpPage,
   ProfilePage,
+  UserDetailsPage,
 } from "./pages";
 import { ErrorElement } from "./components";
 import "./app.css";
@@ -21,7 +22,7 @@ const router = createBrowserRouter(
     {
       path: "/",
       element: <HomeLayout />,
-      errorElement: <ErrorPage />,
+      errorElement: <ErrorElement />,
       children: [
         {
           index: true,
@@ -41,7 +42,12 @@ const router = createBrowserRouter(
         {
           path: "profile",
           element: <ProfilePage />,
-          errorElement: <ErrorPage />,
+          errorElement: <ErrorElement />,
+        },
+        {
+          path: "profile/user",
+          element: <UserDetailsPage />,
+          errorElement: <ErrorElement />,
         },
       ],
     },

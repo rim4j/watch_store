@@ -36,7 +36,7 @@ const Container = styled.div`
     padding: 15px;
     width: 100%;
     /* border-radius: 8px; */
-    border: 1px solid #ccc;
+    border: 1px solid var(--color--light-grey);
     outline: none;
     transition: all 0.2s ease;
     font-size: 12px;
@@ -50,12 +50,12 @@ const Container = styled.div`
     align-items: center;
   }
   .phone {
-    background-color: var(--color--light-grey);
-    border-radius: 8px 0 0 8px;
-    padding: 15px;
-    font-size: 12px;
     margin-top: 2rem;
     margin-bottom: 10px;
+    padding: 15px;
+    background-color: var(--color--light-grey);
+    border-radius: 8px 0 0 8px;
+    font-size: 13px;
     padding: 15px;
     border-radius: 8px 0 0 8px;
     border: 1px solid var(--color--light-grey);
