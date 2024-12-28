@@ -1,15 +1,45 @@
 import styled from "styled-components";
-import { Input, Button } from "../components";
-import GoogleMapReact from "google-map-react";
+import { Input, Button, Loading } from "../components";
+import axios from "axios";
+import { userProfileUrl } from "../utils/url";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const UserDetailsPage = () => {
-  const defaultProps = {
-    center: {
-      lat: 36.885796,
-      lng: 54.068883,
-    },
-    zoom: 15,
+  const { token } = useSelector((state) => state.user);
+  const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const config = {
+    headers: { Authorization: token },
   };
+
+  const bodyParameters = {
+    key: "value",
+  };
+
+  const userProfile = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await axios.post(userProfileUrl, bodyParameters, config);
+      setIsLoading(false);
+      setUser(data.data.user_info);
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    userProfile();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <LoadingContainer className=' container '>
+        <Loading />
+      </LoadingContainer>
+    );
+  }
 
   return (
     <Container>
@@ -19,16 +49,6 @@ const UserDetailsPage = () => {
       <Input placeholder='کد پستی' />
       <Input placeholder='آدرس' />
 
-      <div style={{ height: "100vh", width: "100%" }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "" }}
-          defaultCenter={defaultProps.center}
-          defaultZoom={defaultProps.zoom}
-        >
-          {/* <Div lat={59.955413} lng={30.337844} text='My Marker' /> */}
-        </GoogleMapReact>
-      </div>
-
       <div className='btn-container'>
         <Button title='ذخیره' />
       </div>
@@ -36,7 +56,12 @@ const UserDetailsPage = () => {
   );
 };
 
+const LoadingContainer = styled.div`
+  padding-bottom: 4rem;
+`;
+
 const Container = styled.div`
+  margin: 2rem;
   .title {
     font-size: 22px;
     margin: 8rem 0 8rem 0;
