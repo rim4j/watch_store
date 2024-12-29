@@ -7,7 +7,12 @@ import { useEffect, useState } from "react";
 
 const UserDetailsPage = () => {
   const { token } = useSelector((state) => state.user);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    address: "",
+    postalCode: "",
+    mobile: "",
+    name: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   const config = {
@@ -23,7 +28,12 @@ const UserDetailsPage = () => {
     try {
       const { data } = await axios.post(userProfileUrl, bodyParameters, config);
       setIsLoading(false);
-      setUser(data.data.user_info);
+      setUser({
+        name: data.data.user_info.name,
+        address: data.data.user_info.address.address,
+        postalCode: data.data.user_info.address.postal_code,
+        mobile: data.data.user_info.mobile,
+      });
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -44,13 +54,31 @@ const UserDetailsPage = () => {
   return (
     <Container>
       <h1 className='title'>اطلاعات حساب کاربر</h1>
-      <Input placeholder='نام کاربر' />
-      <Input placeholder='موبایل' dir phone />
-      <Input placeholder='کد پستی' />
-      <Input placeholder='آدرس' />
+      <Input
+        placeholder='نام کاربر'
+        value={user.name}
+        onChange={(e) => setUser({ ...user, name: e.target.value })}
+      />
+      <Input
+        placeholder='موبایل'
+        dir
+        phone
+        value={user.mobile}
+        onChange={(e) => setUser({ ...user, mobile: e.target.value })}
+      />
+      <Input
+        placeholder='کد پستی'
+        value={user.postalCode}
+        onChange={(e) => setUser({ ...user, postalCode: e.target.value })}
+      />
+      <Input
+        placeholder='آدرس'
+        value={user.address}
+        onChange={(e) => setUser({ ...user, address: e.target.value })}
+      />
 
       <div className='btn-container'>
-        <Button title='ذخیره' />
+        <Button title='ذخیره' onClick={() => console.log(user)} />
       </div>
     </Container>
   );
