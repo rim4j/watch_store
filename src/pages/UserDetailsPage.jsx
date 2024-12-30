@@ -1,19 +1,21 @@
 import styled from "styled-components";
 import { Input, Button, Loading } from "../components";
 import axios from "axios";
-import { userProfileUrl } from "../utils/url";
+import { registerProfileUrl, userProfileUrl } from "../utils/url";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const UserDetailsPage = () => {
   const { token } = useSelector((state) => state.user);
   const [user, setUser] = useState({
-    address: "",
-    postalCode: "",
-    mobile: "",
+    phone: "",
     name: "",
+    address: "",
+    postal_code: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
 
   const config = {
     headers: { Authorization: token },
@@ -31,12 +33,32 @@ const UserDetailsPage = () => {
       setUser({
         name: data.data.user_info.name,
         address: data.data.user_info.address.address,
-        postalCode: data.data.user_info.address.postal_code,
-        mobile: data.data.user_info.mobile,
+        postal_code: data.data.user_info.address.postal_code,
+        phone: data.data.user_info.mobile,
       });
     } catch (error) {
       setIsLoading(false);
       console.log(error);
+    }
+  };
+
+  const onSubmitForm = async () => {
+    setFormLoading(true);
+    const userInfo = {
+      ...user,
+      lat: "35.616329",
+      lng: "51.231594",
+    };
+    try {
+      const { data } = await axios.post(registerProfileUrl, userInfo, config);
+      if (data.result) {
+        toast.success(data.message);
+      }
+      setFormLoading(false);
+      console.log(data);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      setFormLoading(false);
     }
   };
   useEffect(() => {
@@ -63,13 +85,13 @@ const UserDetailsPage = () => {
         placeholder='موبایل'
         dir
         phone
-        value={user.mobile}
-        onChange={(e) => setUser({ ...user, mobile: e.target.value })}
+        value={user.phone}
+        onChange={(e) => setUser({ ...user, phone: e.target.value })}
       />
       <Input
         placeholder='کد پستی'
-        value={user.postalCode}
-        onChange={(e) => setUser({ ...user, postalCode: e.target.value })}
+        value={user.postal_code}
+        onChange={(e) => setUser({ ...user, postal_code: e.target.value })}
       />
       <Input
         placeholder='آدرس'
@@ -78,7 +100,7 @@ const UserDetailsPage = () => {
       />
 
       <div className='btn-container'>
-        <Button title='ذخیره' onClick={() => console.log(user)} />
+        <Button title='ذخیره' onClick={onSubmitForm} loading={formLoading} />
       </div>
     </Container>
   );
@@ -86,6 +108,7 @@ const UserDetailsPage = () => {
 
 const LoadingContainer = styled.div`
   padding-bottom: 4rem;
+  height: 40vh;
 `;
 
 const Container = styled.div`
