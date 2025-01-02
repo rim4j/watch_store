@@ -11,3 +11,5 @@ export const userProfileUrl =
   "https://watchstore.sasansafari.com/public/api/v1/profile";
 export const registerProfileUrl =
   "https://watchstore.sasansafari.com/public/api/v1/register";
+export const addressProfileUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/user_addresses";

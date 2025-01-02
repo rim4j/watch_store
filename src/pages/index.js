@@ -7,3 +7,4 @@ export { default as ErrorPage } from "./ErrorPage";
 export { default as OtpPage } from "./OtpPage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as UserDetailsPage } from "./UserDetailsPage";
+export { default as AddressPage } from "./AddressPage";

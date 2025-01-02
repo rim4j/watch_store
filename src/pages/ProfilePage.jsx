@@ -28,10 +28,12 @@ const ProfilePage = () => {
             <p>اطلاعات حساب کاربری</p>
           </div>
         </Link>
-        <div className='card scale'>
-          <FaLocationDot size='50px' color='#000' />
-          <p> آدرس ها</p>
-        </div>
+        <Link to='address'>
+          <div className='card scale'>
+            <FaLocationDot size='50px' color='#000' />
+            <p> آدرس ها</p>
+          </div>
+        </Link>
         <div className='card scale'>
           <IoMdArrowRoundDown size='50px' color='#000' />
           <p>سفارش های دریافت شده</p>

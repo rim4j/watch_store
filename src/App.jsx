@@ -1,4 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import {
   LandingPage,
   HomeLayout,
@@ -9,6 +12,7 @@ import {
   OtpPage,
   ProfilePage,
   UserDetailsPage,
+  AddressPage,
 } from "./pages";
 import { ErrorElement } from "./components";
 import "./app.css";
@@ -16,6 +20,15 @@ import "./app.css";
 //loaders
 
 //actions
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      // cacheTime: 1000,
+    },
+  },
+});
 
 const router = createBrowserRouter(
   [
@@ -49,6 +62,11 @@ const router = createBrowserRouter(
           element: <UserDetailsPage />,
           errorElement: <ErrorElement />,
         },
+        {
+          path: "profile/address",
+          element: <AddressPage />,
+          errorElement: <ErrorElement />,
+        },
       ],
     },
     {
@@ -75,9 +93,10 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <div>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-    </div>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 
