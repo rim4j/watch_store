@@ -13,6 +13,9 @@ import {
   ProfilePage,
   UserDetailsPage,
   AddressPage,
+  OrderReceivedPage,
+  OrderProgressPage,
+  OrderCancelledPage,
 } from "./pages";
 import { ErrorElement } from "./components";
 import "./app.css";
@@ -65,6 +68,21 @@ const router = createBrowserRouter(
         {
           path: "profile/address",
           element: <AddressPage />,
+          errorElement: <ErrorElement />,
+        },
+        {
+          path: "profile/orderReceived",
+          element: <OrderReceivedPage />,
+          errorElement: <ErrorElement />,
+        },
+        {
+          path: "profile/orderProgress",
+          element: <OrderProgressPage />,
+          errorElement: <ErrorElement />,
+        },
+        {
+          path: "profile/orderCancelled",
+          element: <OrderCancelledPage />,
           errorElement: <ErrorElement />,
         },
       ],

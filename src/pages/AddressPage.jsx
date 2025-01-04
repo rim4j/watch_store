@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const AddressPage = () => {
   const { data, isLoading } = useFetchAddressProfile();
+
   if (isLoading) {
     return (
       <LoadingContainer className=' container '>
@@ -12,9 +13,22 @@ const AddressPage = () => {
       </LoadingContainer>
     );
   }
+
+  if (data.length === 0) {
+    return (
+      <Container>
+        <h1 className='title'>آدرسی وجود ندارد!</h1>
+
+        <Link to='/profile/user'>
+          <Button title='اضافه کردن ادرس ' />
+        </Link>
+      </Container>
+    );
+  }
+
   return (
     <Container>
-      <h1 className='title'>اطلاعات حساب کاربر</h1>
+      <h1 className='title'>آدرس های کاربر</h1>
 
       <CardContainer>
         {data.map((item, i) => (
@@ -58,4 +72,5 @@ const Card = styled.div`
     color: #000;
   }
 `;
+
 export default AddressPage;

@@ -28,24 +28,35 @@ const ProfilePage = () => {
             <p>اطلاعات حساب کاربری</p>
           </div>
         </Link>
+
         <Link to='address'>
           <div className='card scale'>
             <FaLocationDot size='50px' color='#000' />
             <p> آدرس ها</p>
           </div>
         </Link>
-        <div className='card scale'>
-          <IoMdArrowRoundDown size='50px' color='#000' />
-          <p>سفارش های دریافت شده</p>
-        </div>
-        <div className='card scale'>
-          <IoMdArrowRoundUp size='50px' color='#000' />
-          <p> سفارش های کنسل شده </p>
-        </div>
-        <div className='card scale'>
-          <FaArrowsRotate size='50px' color='#000' />
-          <p> سفارش های در حال پردازش</p>
-        </div>
+
+        <Link to='orderReceived'>
+          <div className='card scale'>
+            <IoMdArrowRoundDown size='50px' color='#000' />
+            <p>سفارش های دریافت شده</p>
+          </div>
+        </Link>
+
+        <Link to='orderCancelled'>
+          <div className='card scale'>
+            <IoMdArrowRoundUp size='50px' color='#000' />
+            <p> سفارش های لغو شده </p>
+          </div>
+        </Link>
+
+        <Link to='orderProgress'>
+          <div className='card scale'>
+            <FaArrowsRotate size='50px' color='#000' />
+            <p> سفارش های در حال پردازش</p>
+          </div>
+        </Link>
+
         <div className='card scale' onClick={handleLogout}>
           <BiLogOut size='50px' color='#000' />
           <p> خروج</p>
