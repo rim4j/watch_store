@@ -14,8 +14,8 @@ import {
   UserDetailsPage,
   AddressPage,
   OrderReceivedPage,
-  OrderProgressPage,
   OrderCancelledPage,
+  OrderProcessingPage,
 } from "./pages";
 import { ErrorElement } from "./components";
 import "./app.css";
@@ -76,8 +76,8 @@ const router = createBrowserRouter(
           errorElement: <ErrorElement />,
         },
         {
-          path: "profile/orderProgress",
-          element: <OrderProgressPage />,
+          path: "profile/orderProcessing",
+          element: <OrderProcessingPage />,
           errorElement: <ErrorElement />,
         },
         {

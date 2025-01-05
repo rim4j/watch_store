@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { useFetchOrderReceived } from "../hooks/reactQueryCustomHooks";
+import { useFetchOrderProcessing } from "../hooks/reactQueryCustomHooks";
 import { Loading } from "../components";
-const OrderReceivedPage = () => {
-  const { data, isLoading } = useFetchOrderReceived();
+
+const OrderProcessingPage = () => {
+  const { data, isLoading } = useFetchOrderProcessing();
 
   if (isLoading) {
     return (
@@ -15,14 +16,14 @@ const OrderReceivedPage = () => {
   if (data.length === 0) {
     return (
       <Container>
-        <h1 className='title'>هیج سفارشی به دست شما نرسیده است</h1>
+        <h1 className='title'>سفارشی در حال پردازش نمی باشد</h1>
       </Container>
     );
   }
 
   return (
     <Container>
-      <h1 className='title'>سفارش های دریافت شده </h1>
+      <h1 className='title'>سفارش های در حال پردازش </h1>
     </Container>
   );
 };
@@ -39,5 +40,4 @@ const Container = styled.div`
     margin: 8rem 0 8rem 0;
   }
 `;
-
-export default OrderReceivedPage;
+export default OrderProcessingPage;

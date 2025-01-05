@@ -13,3 +13,10 @@ export const registerProfileUrl =
   "https://watchstore.sasansafari.com/public/api/v1/register";
 export const addressProfileUrl =
   "https://watchstore.sasansafari.com/public/api/v1/user_addresses";
+
+export const userOrderReceivedUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/user_received_orders";
+export const userProcessingOrdersUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/user_processing_orders";
+export const userOrderCancelledUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/user_cancelled_orders";

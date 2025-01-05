@@ -1,6 +1,26 @@
 import styled from "styled-components";
+import { Loading } from "../components";
+import { useFetchOrderCancelled } from "../hooks/reactQueryCustomHooks";
 
 const OrderCancelledPage = () => {
+  const { data, isLoading } = useFetchOrderCancelled();
+
+  if (isLoading) {
+    return (
+      <LoadingContainer className=' container '>
+        <Loading />
+      </LoadingContainer>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <Container>
+        <h1 className='title'>هیج سفارشی لغو نشده است</h1>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <h1 className='title'>سفارش های لغو شده </h1>

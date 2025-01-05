@@ -50,7 +50,7 @@ const ProfilePage = () => {
           </div>
         </Link>
 
-        <Link to='orderProgress'>
+        <Link to='orderProcessing'>
           <div className='card scale'>
             <FaArrowsRotate size='50px' color='#000' />
             <p> سفارش های در حال پردازش</p>

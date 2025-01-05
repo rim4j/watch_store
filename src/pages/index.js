@@ -9,5 +9,5 @@ export { default as ProfilePage } from "./ProfilePage";
 export { default as UserDetailsPage } from "./UserDetailsPage";
 export { default as AddressPage } from "./AddressPage";
 export { default as OrderReceivedPage } from "./OrderReceivedPage";
-export { default as OrderProgressPage } from "./OrderProgressPage";
+export { default as OrderProcessingPage } from "./OrderProcessingPage";
 export { default as OrderCancelledPage } from "./OrderCancelledPage";
