@@ -20,3 +20,5 @@ export const userProcessingOrdersUrl =
   "https://watchstore.sasansafari.com/public/api/v1/user_processing_orders";
 export const userOrderCancelledUrl =
   "https://watchstore.sasansafari.com/public/api/v1/user_cancelled_orders";
+export const addToCartUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/add_to_cart";

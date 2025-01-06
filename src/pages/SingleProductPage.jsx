@@ -10,11 +10,15 @@ import { formatPrice } from "../utils/formatPrice";
 import { MdOutlineDoneAll } from "react-icons/md";
 import { VscPercentage } from "react-icons/vsc";
 import { FaUserCircle } from "react-icons/fa";
+import axios from "axios";
+import { addToCartUrl } from "../utils/url";
+import { toast } from "react-toastify";
 
 const SingleProductPage = () => {
   const { detailsProduct, isLoading } = useSelector((state) => state.products);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [addToCartLoading, setAddToCartLoading] = useState(false);
 
   const [selectColor, setSelectColor] = useState({});
 
@@ -38,6 +42,28 @@ const SingleProductPage = () => {
       </LoadingContainer>
     );
   }
+
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  const addToCart = async (id) => {
+    const productId = {
+      product_id: id,
+    };
+    setAddToCartLoading(true);
+    try {
+      const { data } = await axios.post(addToCartUrl, productId, config);
+      if (data.result) {
+        toast.success(data.message);
+        setAddToCartLoading(false);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      setAddToCartLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -96,7 +122,12 @@ const SingleProductPage = () => {
                 )}
               </div>
             </div>
-            <Button title='افزودن به سبد' full />
+            <Button
+              title='افزودن به سبد'
+              full
+              onClick={() => addToCart(id)}
+              loading={addToCartLoading}
+            />
             <div className='guaranty-container'>
               <MdOutlineDoneAll size='20px' color='#000' />
               <p className='guaranty-text'>{detailsProduct.guaranty}</p>

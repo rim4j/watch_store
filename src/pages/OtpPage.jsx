@@ -26,6 +26,7 @@ const OtpPage = () => {
       mobile: phone,
       code: code.toString(),
     };
+
     try {
       setLoading(true);
       const res = await axios.post(checkSmsCode, data);
