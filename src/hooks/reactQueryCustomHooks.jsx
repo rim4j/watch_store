@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {
   addressProfileUrl,
+  userCartUrl,
   userOrderCancelledUrl,
   userOrderReceivedUrl,
   userProcessingOrdersUrl,
@@ -67,6 +68,17 @@ export const useFetchOrderReceived = () => {
         bodyParameters,
         config
       );
+      return data.data;
+    },
+  });
+  return { data, isLoading, error, isError };
+};
+
+export const useCartUser = () => {
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["cartUser"],
+    queryFn: async () => {
+      const { data } = await axios.post(userCartUrl, bodyParameters, config);
       return data.data;
     },
   });

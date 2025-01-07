@@ -16,6 +16,7 @@ import {
   OrderReceivedPage,
   OrderCancelledPage,
   OrderProcessingPage,
+  CartPage,
 } from "./pages";
 import { ErrorElement } from "./components";
 import "./app.css";
@@ -83,6 +84,11 @@ const router = createBrowserRouter(
         {
           path: "profile/orderCancelled",
           element: <OrderCancelledPage />,
+          errorElement: <ErrorElement />,
+        },
+        {
+          path: "cart",
+          element: <CartPage />,
           errorElement: <ErrorElement />,
         },
       ],

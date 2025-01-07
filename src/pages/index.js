@@ -11,3 +11,4 @@ export { default as AddressPage } from "./AddressPage";
 export { default as OrderReceivedPage } from "./OrderReceivedPage";
 export { default as OrderProcessingPage } from "./OrderProcessingPage";
 export { default as OrderCancelledPage } from "./OrderCancelledPage";
+export { default as CartPage } from "./CartPage";

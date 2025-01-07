@@ -61,12 +61,14 @@ const Navbar = ({ openDrawer }) => {
               icon={<CiHeart color='#333' size='24px' />}
             />
           </div>
-          <IconButton
-            onClick={() => console.log("icon button")}
-            backgroundColor='#ff4156'
-            icon={<CiShoppingCart color='#fff' size='24px' />}
-            badge={numInCart}
-          />
+          <Link to={token === null ? "/login" : "/cart"}>
+            <IconButton
+              onClick={() => console.log("icon button")}
+              backgroundColor='#ff4156'
+              icon={<CiShoppingCart color='#fff' size='24px' />}
+              badge={numInCart}
+            />
+          </Link>
         </IconContainer>
       </Container>
 

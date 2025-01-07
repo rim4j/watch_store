@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDetailsProduct } from "../features/products/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -19,7 +19,7 @@ const SingleProductPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [addToCartLoading, setAddToCartLoading] = useState(false);
-
+  const navigate = useNavigate();
   const [selectColor, setSelectColor] = useState({});
 
   useEffect(() => {
@@ -49,19 +49,23 @@ const SingleProductPage = () => {
   };
 
   const addToCart = async (id) => {
-    const productId = {
-      product_id: id,
-    };
-    setAddToCartLoading(true);
-    try {
-      const { data } = await axios.post(addToCartUrl, productId, config);
-      if (data.result) {
-        toast.success(data.message);
+    if (token) {
+      const productId = {
+        product_id: id,
+      };
+      setAddToCartLoading(true);
+      try {
+        const { data } = await axios.post(addToCartUrl, productId, config);
+        if (data.result) {
+          toast.success(data.message);
+          setAddToCartLoading(false);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
         setAddToCartLoading(false);
       }
-    } catch (error) {
-      toast.error(error.response.data.message);
-      setAddToCartLoading(false);
+    } else {
+      navigate("/login");
     }
   };
 
