@@ -9,7 +9,7 @@ const Container = styled.div`
   height: 1px;
   margin-top: 10px;
   margin-bottom: 10px;
-  background-color: var(--color--border);
+  background-color: var(--color--light-grey);
 `;
 
 export default Divider;
