@@ -58,12 +58,23 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0 4rem 0 4rem;
   }
 `;
 
 const CartItem = styled.div`
-  margin-bottom: 4rem;
-  margin-top: 4rem;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    .price {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
+  }
+
+  margin: 4rem;
   img {
     width: 10rem;
     height: 10rem;
