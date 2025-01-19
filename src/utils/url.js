@@ -24,3 +24,7 @@ export const addToCartUrl =
   "https://watchstore.sasansafari.com/public/api/v1/add_to_cart";
 export const userCartUrl =
   "https://watchstore.sasansafari.com/public/api/v1/user_cart";
+export const removeFromCartUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/remove_from_cart";
+export const deleteFromCartUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/delete_from_cart";

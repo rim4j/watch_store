@@ -15,7 +15,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logOut());
-    navigate("/");
+    navigate("/login");
   };
   return (
     <Container>

@@ -15,9 +15,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Navbar = ({ openDrawer }) => {
-  const numInCart = "0";
   const [scrollY, setScrollY] = useState(0);
   const { token } = useSelector((state) => state.user);
+  const { totalCount } = useSelector((state) => state.cart);
 
   const handleScrollY = () => {
     setScrollY(window.scrollY);
@@ -66,7 +66,7 @@ const Navbar = ({ openDrawer }) => {
               onClick={() => console.log("icon button")}
               backgroundColor='#ff4156'
               icon={<CiShoppingCart color='#fff' size='24px' />}
-              badge={numInCart}
+              badge={totalCount === 0 ? null : totalCount}
             />
           </Link>
         </IconContainer>

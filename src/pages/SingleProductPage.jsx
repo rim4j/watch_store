@@ -10,9 +10,8 @@ import { formatPrice } from "../utils/formatPrice";
 import { MdOutlineDoneAll } from "react-icons/md";
 import { VscPercentage } from "react-icons/vsc";
 import { FaUserCircle } from "react-icons/fa";
-import axios from "axios";
-import { addToCartUrl } from "../utils/url";
 import { toast } from "react-toastify";
+import { useAddToCart } from "../hooks/reactQueryCustomHooks";
 
 const SingleProductPage = () => {
   const { detailsProduct, isLoading } = useSelector((state) => state.products);
@@ -21,6 +20,7 @@ const SingleProductPage = () => {
   const [addToCartLoading, setAddToCartLoading] = useState(false);
   const navigate = useNavigate();
   const [selectColor, setSelectColor] = useState({});
+  const { addToCart } = useAddToCart();
 
   useEffect(() => {
     dispatch(getDetailsProduct(id));
@@ -44,26 +44,16 @@ const SingleProductPage = () => {
   }
 
   const token = localStorage.getItem("token");
-  const config = {
-    headers: { Authorization: token },
-  };
 
-  const addToCart = async (id) => {
+  const handleAddToCart = async (id) => {
     if (token) {
-      const productId = {
-        product_id: id,
-      };
       setAddToCartLoading(true);
-      try {
-        const { data } = await axios.post(addToCartUrl, productId, config);
-        if (data.result) {
-          toast.success(data.message);
+      addToCart(id, {
+        onSuccess: () => {
           setAddToCartLoading(false);
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-        setAddToCartLoading(false);
-      }
+          toast.success("کالا به سبد خرید اضافه شد");
+        },
+      });
     } else {
       navigate("/login");
     }
@@ -129,7 +119,7 @@ const SingleProductPage = () => {
             <Button
               title='افزودن به سبد'
               full
-              onClick={() => addToCart(id)}
+              onClick={() => handleAddToCart(id)}
               loading={addToCartLoading}
             />
             <div className='guaranty-container'>

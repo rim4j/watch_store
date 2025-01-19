@@ -1,13 +1,23 @@
 import styled from "styled-components";
-import { useCartUser } from "../hooks/reactQueryCustomHooks";
+import {
+  useAddToCart,
+  useDeleteFromCart,
+  useRemoveFromCart,
+} from "../hooks/reactQueryCustomHooks";
 import { Button, Divider, IconButton, Loading } from "../components";
-import { MdArrowForwardIos } from "react-icons/md";
-import { MdArrowBackIos } from "react-icons/md";
+
 import { formatPrice } from "../utils/formatPrice";
+import emptyCart from "./../assets/svg/empty_cart.svg";
+import { FaPlus } from "react-icons/fa";
+import { FaMinus } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const CartPage = () => {
-  const { data, isLoading } = useCartUser();
-  console.log(data);
+  // const { data, isLoading } = useCartUser();
+  const { cart, isLoading, totalAmount } = useSelector((state) => state.cart);
+  const { addToCart } = useAddToCart();
+  const { removeFromCart } = useRemoveFromCart();
+  const { deleteFromCart } = useDeleteFromCart();
 
   if (isLoading) {
     return (
@@ -17,34 +27,66 @@ const CartPage = () => {
     );
   }
 
+  if (cart.length === 0) {
+    return (
+      <EmptyContainer>
+        <h1>سبد خرید شما خالی است</h1>
+        <img src={emptyCart} alt='' />
+      </EmptyContainer>
+    );
+  }
+
   return (
     <Container>
       <div className='title-container'>
         <h1 className='title'>سبد خرید</h1>
-        <h1 className='title'>
-          جمع کل سبد خرید : {formatPrice(data.cart_total_price)}
-        </h1>
+        <h1 className='title'>جمع کل سبد خرید : {formatPrice(totalAmount)}</h1>
       </div>
 
-      {data.user_cart.map((item, i) => (
+      {cart.map((item, i) => (
         <div key={i}>
           <CartItem>
             <img src={item.image} alt='عکس' />
             <p className='title-product'>{item.product}</p>
             <div className='icon-container'>
-              <IconButton icon={<MdArrowForwardIos />} />
-              <p>{item.count}</p>
-              <IconButton icon={<MdArrowBackIos />} />
+              <IconButton
+                icon={<FaPlus />}
+                onClick={() => {
+                  addToCart(item.product_id);
+                }}
+              />
+              <p className='item-count'>{item.count}</p>
+              <IconButton
+                icon={<FaMinus />}
+                onClick={() => removeFromCart(item.product_id)}
+              />
             </div>
             <p className='price'>قیمت : {formatPrice(item.discount_price)}</p>
-            <Button title='حذف' outline />
+            <Button
+              title='حذف'
+              outline
+              onClick={() => deleteFromCart(item.product_id)}
+            />
           </CartItem>
-          <Divider />
+
+          {cart.length - 1 === i ? null : <Divider />}
         </div>
       ))}
     </Container>
   );
 };
+
+const EmptyContainer = styled.div`
+  margin: 4rem;
+  text-align: center;
+  h1 {
+    font-size: 24px;
+    margin-bottom: 4rem;
+  }
+  img {
+    width: 40rem;
+  }
+`;
 const LoadingContainer = styled.div`
   padding-bottom: 4rem;
 `;
@@ -73,11 +115,14 @@ const CartItem = styled.div`
       margin-bottom: 4rem;
     }
   }
+  .item-count {
+    color: #000;
+  }
 
   margin: 4rem;
   img {
-    width: 10rem;
-    height: 10rem;
+    width: 15rem;
+    height: 15rem;
   }
 
   display: flex;
@@ -85,7 +130,7 @@ const CartItem = styled.div`
   justify-content: space-between;
   .title-product {
     color: black;
-    width: 400px;
+    width: 300px;
   }
 
   .icon-container {
@@ -96,6 +141,7 @@ const CartItem = styled.div`
   .price {
     color: black;
     margin-right: 4rem;
+    width: 200px;
   }
 `;
 

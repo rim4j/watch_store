@@ -3,6 +3,7 @@ import { Navbar, Drawer, Loading, Footer } from "../components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHomeItems } from "../features/home/homeSlice";
+import { getCartItems } from "../features/cart/cartSlice";
 
 const HomeLayout = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -15,6 +16,7 @@ const HomeLayout = () => {
 
   useEffect(() => {
     dispatch(getHomeItems());
+    dispatch(getCartItems());
   }, []);
 
   return (

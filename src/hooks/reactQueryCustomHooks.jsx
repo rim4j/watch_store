@@ -1,12 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import {
   addressProfileUrl,
+  addToCartUrl,
+  deleteFromCartUrl,
+  removeFromCartUrl,
   userCartUrl,
   userOrderCancelledUrl,
   userOrderReceivedUrl,
   userProcessingOrdersUrl,
 } from "../utils/url";
+import { toast } from "react-toastify";
 
 const token = localStorage.getItem("token");
 const config = {
@@ -75,12 +79,77 @@ export const useFetchOrderReceived = () => {
 };
 
 export const useCartUser = () => {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["cartUser"],
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ["cart"],
+    refetchOnWindowFocus: "always",
+    refetchOnMount: true,
+
     queryFn: async () => {
       const { data } = await axios.post(userCartUrl, bodyParameters, config);
       return data.data;
     },
   });
-  return { data, isLoading, error, isError };
+  return { data, isLoading, error, isError, refetch };
+};
+
+export const useAddToCart = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate: addToCart } = useMutation({
+    mutationFn: (id) => {
+      const productId = {
+        product_id: id,
+      };
+      axios.post(addToCartUrl, productId, config);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["cart"],
+      });
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+  });
+  return { addToCart };
+};
+
+export const useRemoveFromCart = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate: removeFromCart } = useMutation({
+    mutationFn: (id) => {
+      const productId = {
+        product_id: id,
+      };
+      axios.post(removeFromCartUrl, productId, config);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+  });
+  return { removeFromCart };
+};
+export const useDeleteFromCart = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteFromCart } = useMutation({
+    mutationFn: (id) => {
+      const productId = {
+        product_id: id,
+      };
+      axios.post(deleteFromCartUrl, productId, config);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+      toast.success("محصول با موفقیت از سبد خرید حذف شد");
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+  });
+  return { deleteFromCart };
 };
