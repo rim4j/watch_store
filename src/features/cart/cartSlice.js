@@ -41,7 +41,6 @@ const cartSlice = createSlice({
 
     builder.addCase(getCartItems.fulfilled, (state, { payload }) => {
       state.isLoading = false;
-      console.log(payload);
       state.cart = payload.user_cart;
       state.totalAmount = payload.cart_total_price;
       const num = payload.user_cart.map((item) => item.count);
@@ -54,6 +53,38 @@ const cartSlice = createSlice({
       console.log(payload);
     });
   },
+
+  reducers: {
+    addItem: (state, { payload }) => {
+      const item = state.cart.find((item) => item.product_id === payload.id);
+
+      let product = {
+        id: payload.id,
+        product_id: payload.id,
+        product: payload.title,
+        count: 1,
+        price: payload.price,
+        discount: payload.discount,
+        discount_price: payload.discount_price,
+        image: payload.image,
+      };
+
+      if (item) {
+        const tempCart = state.cart.map((item) => {
+          return { ...item, count: item.count + 1 };
+        });
+        state.cart = tempCart;
+        state.totalCount = state.totalCount + 1;
+        state.totalAmount = state.totalAmount + product.discount_price;
+      } else {
+        state.cart.push(product);
+        state.totalCount = state.totalCount + 1;
+        state.totalAmount = state.totalAmount + product.discount_price;
+      }
+    },
+  },
 });
+
+export const { addItem } = cartSlice.actions;
 
 export default cartSlice.reducer;

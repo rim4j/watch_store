@@ -12,6 +12,7 @@ import { VscPercentage } from "react-icons/vsc";
 import { FaUserCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useAddToCart } from "../hooks/reactQueryCustomHooks";
+import { addItem } from "../features/cart/cartSlice";
 
 const SingleProductPage = () => {
   const { detailsProduct, isLoading } = useSelector((state) => state.products);
@@ -45,18 +46,22 @@ const SingleProductPage = () => {
 
   const token = localStorage.getItem("token");
 
-  const handleAddToCart = async (id) => {
-    if (token) {
-      setAddToCartLoading(true);
-      addToCart(id, {
-        onSuccess: () => {
-          setAddToCartLoading(false);
-          toast.success("کالا به سبد خرید اضافه شد");
-        },
-      });
-    } else {
-      navigate("/login");
-    }
+  // const handleAddToCart = async (id) => {
+  //   if (token) {
+  //     setAddToCartLoading(true);
+  //     addToCart(id, {
+  //       onSuccess: () => {
+  //         setAddToCartLoading(false);
+  //         toast.success("کالا به سبد خرید اضافه شد");
+  //       },
+  //     });
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // };
+
+  const handleAddToCart = (product) => {
+    dispatch(addItem(product));
   };
 
   return (
@@ -119,7 +124,7 @@ const SingleProductPage = () => {
             <Button
               title='افزودن به سبد'
               full
-              onClick={() => handleAddToCart(id)}
+              onClick={() => handleAddToCart(detailsProduct)}
               loading={addToCartLoading}
             />
             <div className='guaranty-container'>
