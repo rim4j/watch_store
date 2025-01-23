@@ -10,7 +10,8 @@ import { formatPrice } from "../utils/formatPrice";
 import emptyCart from "./../assets/svg/empty_cart.svg";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeItem } from "../features/cart/cartSlice";
 
 const CartPage = () => {
   // const { data, isLoading } = useCartUser();
@@ -18,6 +19,7 @@ const CartPage = () => {
   const { addToCart } = useAddToCart();
   const { removeFromCart } = useRemoveFromCart();
   const { deleteFromCart } = useDeleteFromCart();
+  const dispatch = useDispatch();
 
   if (isLoading) {
     return (
@@ -65,7 +67,7 @@ const CartPage = () => {
             <Button
               title='حذف'
               outline
-              onClick={() => deleteFromCart(item.product_id)}
+              onClick={() => dispatch(removeItem(item.product_id))}
             />
           </CartItem>
 
