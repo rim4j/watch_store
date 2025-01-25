@@ -46,22 +46,19 @@ const SingleProductPage = () => {
 
   const token = localStorage.getItem("token");
 
-  // const handleAddToCart = async (id) => {
-  //   if (token) {
-  //     setAddToCartLoading(true);
-  //     addToCart(id, {
-  //       onSuccess: () => {
-  //         setAddToCartLoading(false);
-  //         toast.success("کالا به سبد خرید اضافه شد");
-  //       },
-  //     });
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // };
-
-  const handleAddToCart = (product) => {
-    dispatch(addItem(product));
+  const handleAddToCart = async (product) => {
+    if (token) {
+      setAddToCartLoading(true);
+      dispatch(addItem(product));
+      addToCart(product.id, {
+        onSuccess: () => {
+          setAddToCartLoading(false);
+          toast.success("کالا به سبد خرید اضافه شد");
+        },
+      });
+    } else {
+      navigate("/login");
+    }
   };
 
   return (

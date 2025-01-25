@@ -82,14 +82,47 @@ const cartSlice = createSlice({
         state.totalAmount = state.totalAmount + product.discount_price;
       }
     },
-    increaseItem: (state, { payload }) => {},
-    decreaseItem: (state, { payload }) => {},
-    removeItem: (state, { payload }) => {
-      console.log(payload);
-      const tempCart = state.cart.filter((item) => item.id !== payload);
+    increaseItem: (state, { payload }) => {
+      const tempCart = state.cart.map((item) => {
+        if (item.product_id === payload) {
+          let newCount = item.count + 1;
+          return { ...item, count: newCount };
+        }
+        return item;
+      });
       state.cart = tempCart;
-      state.totalCount = 0;
-      state.totalAmount = 0;
+      cartSlice.caseReducers.calculateTotals(state);
+    },
+    decreaseItem: (state, { payload }) => {
+      const tempCart = state.cart.map((item) => {
+        if (item.product_id === payload) {
+          if (item.count === 1) {
+            return item;
+          }
+          let newCount = item.count - 1;
+          return { ...item, count: newCount };
+        }
+        return item;
+      });
+      state.cart = tempCart;
+      cartSlice.caseReducers.calculateTotals(state);
+    },
+    removeItem: (state, { payload }) => {
+      state.cart = state.cart.filter((item) => item.product_id !== payload);
+      cartSlice.caseReducers.calculateTotals(state);
+    },
+    calculateTotals: (state) => {
+      const { total_items, total_amount } = state.cart.reduce(
+        (total, cartItem) => {
+          const { count, discount_price } = cartItem;
+          total.total_items += count;
+          total.total_amount += discount_price * count;
+          return total;
+        },
+        { total_items: 0, total_amount: 0 }
+      );
+      state.totalCount = total_items;
+      state.totalAmount = total_amount;
     },
   },
 });

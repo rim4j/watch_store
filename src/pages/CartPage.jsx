@@ -11,7 +11,11 @@ import emptyCart from "./../assets/svg/empty_cart.svg";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { removeItem } from "../features/cart/cartSlice";
+import {
+  decreaseItem,
+  increaseItem,
+  removeItem,
+} from "../features/cart/cartSlice";
 
 const CartPage = () => {
   // const { data, isLoading } = useCartUser();
@@ -54,20 +58,27 @@ const CartPage = () => {
               <IconButton
                 icon={<FaPlus />}
                 onClick={() => {
+                  dispatch(increaseItem(item.product_id));
                   addToCart(item.product_id);
                 }}
               />
               <p className='item-count'>{item.count}</p>
               <IconButton
                 icon={<FaMinus />}
-                onClick={() => removeFromCart(item.product_id)}
+                onClick={() => {
+                  dispatch(decreaseItem(item.product_id));
+                  removeFromCart(item.product_id);
+                }}
               />
             </div>
             <p className='price'>قیمت : {formatPrice(item.discount_price)}</p>
             <Button
               title='حذف'
               outline
-              onClick={() => dispatch(removeItem(item.product_id))}
+              onClick={() => {
+                dispatch(removeItem(item.product_id));
+                deleteFromCart(item.product_id);
+              }}
             />
           </CartItem>
 
