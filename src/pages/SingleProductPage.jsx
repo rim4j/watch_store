@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import "react-medium-image-zoom/dist/styles.css";
 import Zoom from "react-medium-image-zoom";
-import { Button, Loading, Divider } from "../components";
+import { Button, Loading, Divider, Input } from "../components";
 import { formatPrice } from "../utils/formatPrice";
 import { MdOutlineDoneAll } from "react-icons/md";
 import { VscPercentage } from "react-icons/vsc";
 import { FaUserCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { useAddToCart } from "../hooks/reactQueryCustomHooks";
+import { useAddComment, useAddToCart } from "../hooks/reactQueryCustomHooks";
 import { addItem } from "../features/cart/cartSlice";
 
 const SingleProductPage = () => {
@@ -22,7 +22,9 @@ const SingleProductPage = () => {
   const navigate = useNavigate();
   const [selectColor, setSelectColor] = useState({});
   const { addToCart } = useAddToCart();
+  const { addComment } = useAddComment();
 
+  const [comment, setComment] = useState("");
   useEffect(() => {
     dispatch(getDetailsProduct(id));
   }, []);
@@ -58,6 +60,22 @@ const SingleProductPage = () => {
       });
     } else {
       navigate("/login");
+    }
+  };
+
+  const submitComment = (comment) => {
+    if (comment === "") {
+      toast.error("لطفا نظر خود را وارد کنید");
+    } else {
+      const genComment = {
+        productId: detailsProduct.id,
+        comment: comment,
+      };
+      addComment(genComment, {
+        onSuccess: () => {
+          setComment("");
+        },
+      });
     }
   };
 
@@ -168,14 +186,16 @@ const SingleProductPage = () => {
             <p className='comment'>{item.body}</p>
           </div>
         ))}
-        <div className='comment-btn-container'>
-          <input
-            type='text'
-            className='input-comment'
-            placeholder='نظر خود را درباره این کالا با کاربران دیگر به اشتراک بگذارید ...'
-          />
-          <Button title='ثبت دیدگاه' />
-        </div>
+        {token && (
+          <div className='comment-btn-container'>
+            <Input
+              placeholder='نظر خود را درباره این کالا با کاربران دیگر به اشتراک بگذارید ...'
+              onChange={(e) => setComment(e.target.value)}
+            />
+
+            <Button title='ثبت دیدگاه' onClick={() => submitComment(comment)} />
+          </div>
+        )}
       </DetailsContainer>
     </div>
   );

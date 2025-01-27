@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import {
+  addCommentUrl,
   addressProfileUrl,
   addToCartUrl,
   deleteFromCartUrl,
@@ -152,4 +153,24 @@ export const useDeleteFromCart = () => {
     },
   });
   return { deleteFromCart };
+};
+export const useAddComment = () => {
+  const queryClient = useQueryClient();
+  const { mutate: addComment } = useMutation({
+    mutationFn: (comment) => {
+      const genComment = {
+        product_id: comment.productId,
+        body: comment.comment,
+      };
+      axios.post(addCommentUrl, genComment, config);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comment"] });
+      toast.success(" نظر ثبت شد و پس از تایید نمایش داده خواهد شد");
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+  });
+  return { addComment };
 };
