@@ -30,3 +30,7 @@ export const deleteFromCartUrl =
   "https://watchstore.sasansafari.com/public/api/v1/delete_from_cart";
 export const addCommentUrl =
   "https://watchstore.sasansafari.com/public/api/v1/save_product_comment";
+export const allProductsUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/all_products?page=1";
+export const searchProductsUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/all_products/";
