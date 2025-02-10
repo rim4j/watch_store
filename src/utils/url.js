@@ -34,3 +34,5 @@ export const allProductsUrl =
   "https://watchstore.sasansafari.com/public/api/v1/all_products?page=1";
 export const searchProductsUrl =
   "https://watchstore.sasansafari.com/public/api/v1/all_products/";
+export const brandUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/brands";

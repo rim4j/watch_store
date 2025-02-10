@@ -3,6 +3,7 @@ import homeReducer from "./features/home/homeSlice";
 import productsReducer from "./features/products/productsSlice";
 import userReducer from "./features/user/userSlice";
 import CartReducer from "./features/cart/cartSlice";
+import FilteredProductsReducer from "./features/filteredProducts/filteredProductsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     products: productsReducer,
     user: userReducer,
     cart: CartReducer,
+    filteredProducts: FilteredProductsReducer,
   },
 });
