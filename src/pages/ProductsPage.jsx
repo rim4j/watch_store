@@ -5,6 +5,7 @@ import {
   getBrands,
   selectFilter,
 } from "../features/filteredProducts/filteredProductsSlice";
+import { productsReview } from "../utils/strings";
 
 const ProductsPage = () => {
   const { brands, isLoadingBrand, filters } = useSelector(
@@ -20,6 +21,16 @@ const ProductsPage = () => {
       <FilterContainer>
         <div className='brand-container'>
           <p className='title'>فیلترها:</p>
+          <p
+            onClick={() => dispatch(selectFilter("همه محصولات"))}
+            className={`brand-item ${
+              filters.selectFilter === "همه محصولات"
+                ? "active-brand"
+                : "brand-item"
+            }`}
+          >
+            همه محصولات
+          </p>
           {brands.map((item, i) => (
             <p
               key={i}
@@ -31,6 +42,17 @@ const ProductsPage = () => {
               }`}
             >
               {item.title}
+            </p>
+          ))}
+          {productsReview.map((item, i) => (
+            <p
+              key={i}
+              onClick={() => dispatch(selectFilter(item))}
+              className={`brand-item ${
+                filters.selectFilter === item ? "active-brand" : "brand-item"
+              }`}
+            >
+              {item}
             </p>
           ))}
         </div>
