@@ -4,17 +4,27 @@ import styled from "styled-components";
 import {
   fetchFilterProducts,
   fetchFilterProductsByBrand,
+  fetchFilterProductsByCategory,
   getBrands,
   selectFilter,
 } from "../features/filteredProducts/filteredProductsSlice";
 import { productsReview } from "../utils/strings";
-import { allProductsUrl, productsByBrandUrl } from "../utils/url";
+import {
+  allProductsUrl,
+  cheapestProductsUrl,
+  mostExpensiveProductsUrl,
+  mostViewedProductsUrl,
+  newestProductsUrl,
+  productsByBrandUrl,
+  productsByCategoryUrl,
+} from "../utils/url";
 import { Link } from "react-router-dom";
 import { Card, Loading } from "./../components";
 
 const ProductsPage = () => {
   const { brands, isLoadingBrand, filters, filteredProducts, isLoading } =
     useSelector((state) => state.filteredProducts);
+  const { categories } = useSelector((state) => state.home);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,16 +55,28 @@ const ProductsPage = () => {
       dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/6`));
     }
     if (title === "جدید ترین محصولات") {
-      console.log("جدید ترین محصولات");
+      dispatch(fetchFilterProducts(newestProductsUrl));
     }
     if (title === "ارزان ترین محصولات") {
-      console.log(" ارزان ترین محصولات");
+      dispatch(fetchFilterProducts(cheapestProductsUrl));
     }
     if (title === "پر بازدید ترین محصولات") {
-      console.log("پر بازدید ترین محصولات");
+      dispatch(fetchFilterProducts(mostViewedProductsUrl));
     }
     if (title === "گران ترین محصولات") {
-      console.log("گران ترین محصولات");
+      dispatch(fetchFilterProducts(mostExpensiveProductsUrl));
+    }
+    if (title === "ساعت مردانه") {
+      dispatch(fetchFilterProductsByCategory(`${productsByCategoryUrl}/1`));
+    }
+    if (title === "ساعت اسپورت") {
+      dispatch(fetchFilterProductsByCategory(`${productsByCategoryUrl}/2`));
+    }
+    if (title === "ساعت زنانه") {
+      dispatch(fetchFilterProductsByCategory(`${productsByCategoryUrl}/3`));
+    }
+    if (title === "ساعت دیجیتال") {
+      dispatch(fetchFilterProductsByCategory(`${productsByCategoryUrl}/4`));
     }
   };
 
@@ -86,6 +108,8 @@ const ProductsPage = () => {
               {item.title}
             </p>
           ))}
+          <p className='title'>بازدید‌:</p>
+
           {productsReview.map((item, i) => (
             <p
               key={i}
@@ -95,6 +119,21 @@ const ProductsPage = () => {
               }`}
             >
               {item}
+            </p>
+          ))}
+
+          <p className='title'>دسته بندی : </p>
+          {categories.map((item, i) => (
+            <p
+              key={i}
+              onClick={() => handleClickFilters(item.title)}
+              className={`brand-item ${
+                filters.selectFilter === item.title
+                  ? "active-brand"
+                  : "brand-item"
+              }`}
+            >
+              {item.title}
             </p>
           ))}
         </div>
@@ -130,18 +169,18 @@ const Wrapper = styled.div`
 `;
 const FilterContainer = styled.div`
   flex: 1;
-  border-radius: 2px;
   margin-left: 2rem;
   margin-bottom: 2rem;
-  border: 1px solid var(--color--light-grey);
-  border-radius: 8px;
   .title {
     font-size: 16px;
     color: black;
     padding: 2rem;
   }
   .brand-container {
-    margin: 2rem;
+    border: 1px solid var(--color--light-grey);
+    border-radius: 8px;
+    padding: 2rem;
+    background-color: white;
   }
   .brand-item {
     font-size: 14px;

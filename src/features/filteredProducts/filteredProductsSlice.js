@@ -53,6 +53,18 @@ export const fetchFilterProductsByBrand = createAsyncThunk(
     }
   }
 );
+export const fetchFilterProductsByCategory = createAsyncThunk(
+  "filterProducts/filtersByCategory",
+  async (url, thunkAPI) => {
+    try {
+      const { data } = await axios.get(url);
+      return data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue("something went wrong");
+    }
+  }
+);
 
 const filteredProducts = createSlice({
   name: "filteredProducts",
@@ -64,20 +76,36 @@ const filteredProducts = createSlice({
   },
 
   extraReducers: (builder) => {
+    builder.addCase(fetchFilterProductsByCategory.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(
+      fetchFilterProductsByCategory.fulfilled,
+      (state, { payload }) => {
+        state.isLoading = false;
+        state.filteredProducts.data = payload.products_by_category.data;
+        state.filteredProducts.links = payload.products_by_category.links;
+        state.filteredProducts.meta = payload.products_by_category.meta;
+      }
+    );
+    builder.addCase(fetchFilterProductsByCategory.rejected, (state) => {
+      state.isLoading = false;
+    });
+
     builder.addCase(fetchFilterProductsByBrand.pending, (state) => {
-      state.isLoadingBrand = true;
+      state.isLoading = true;
     });
     builder.addCase(
       fetchFilterProductsByBrand.fulfilled,
       (state, { payload }) => {
-        state.isLoadingBrand = false;
+        state.isLoading = false;
         state.filteredProducts.data = payload.products_by_brands.data;
         state.filteredProducts.links = payload.products_by_brands.links;
         state.filteredProducts.meta = payload.products_by_brands.meta;
       }
     );
     builder.addCase(fetchFilterProductsByBrand.rejected, (state) => {
-      state.isLoadingBrand = false;
+      state.isLoading = false;
     });
 
     builder.addCase(fetchFilterProducts.pending, (state) => {

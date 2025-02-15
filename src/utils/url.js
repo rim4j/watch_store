@@ -38,3 +38,13 @@ export const brandUrl =
   "https://watchstore.sasansafari.com/public/api/v1/brands";
 export const productsByBrandUrl =
   "https://watchstore.sasansafari.com/public/api/v1/products_by_brand";
+export const productsByCategoryUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/products_by_category";
+export const newestProductsUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/newest_products";
+export const cheapestProductsUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/cheapest_products";
+export const mostExpensiveProductsUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/most_expensive_products";
+export const mostViewedProductsUrl =
+  "https://watchstore.sasansafari.com/public/api/v1/most_viewed_products";
