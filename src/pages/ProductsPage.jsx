@@ -2,27 +2,69 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
+  fetchFilterProducts,
+  fetchFilterProductsByBrand,
   getBrands,
   selectFilter,
 } from "../features/filteredProducts/filteredProductsSlice";
 import { productsReview } from "../utils/strings";
+import { allProductsUrl, productsByBrandUrl } from "../utils/url";
+import { Link } from "react-router-dom";
+import { Card, Loading } from "./../components";
 
 const ProductsPage = () => {
-  const { brands, isLoadingBrand, filters } = useSelector(
-    (state) => state.filteredProducts
-  );
+  const { brands, isLoadingBrand, filters, filteredProducts, isLoading } =
+    useSelector((state) => state.filteredProducts);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBrands());
+    if (filters.selectFilter === "همه محصولات") {
+      dispatch(fetchFilterProducts(allProductsUrl));
+    }
   }, []);
+
+  const handleClickFilters = (title) => {
+    dispatch(selectFilter(title));
+    if (title === "همه محصولات") {
+      dispatch(fetchFilterProducts(allProductsUrl));
+    }
+    if (title === "ورساچه") {
+      dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/1`));
+    }
+    if (title === "کاسیو") {
+      dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/3`));
+    }
+    if (title === "سیتیزن") {
+      dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/4`));
+    }
+    if (title === "اوماکس") {
+      dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/5`));
+    }
+    if (title === "سیکو") {
+      dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/6`));
+    }
+    if (title === "جدید ترین محصولات") {
+      console.log("جدید ترین محصولات");
+    }
+    if (title === "ارزان ترین محصولات") {
+      console.log(" ارزان ترین محصولات");
+    }
+    if (title === "پر بازدید ترین محصولات") {
+      console.log("پر بازدید ترین محصولات");
+    }
+    if (title === "گران ترین محصولات") {
+      console.log("گران ترین محصولات");
+    }
+  };
+
   return (
     <Wrapper>
       <FilterContainer>
         <div className='brand-container'>
           <p className='title'>فیلترها:</p>
           <p
-            onClick={() => dispatch(selectFilter("همه محصولات"))}
+            onClick={() => handleClickFilters("همه محصولات")}
             className={`brand-item ${
               filters.selectFilter === "همه محصولات"
                 ? "active-brand"
@@ -34,7 +76,7 @@ const ProductsPage = () => {
           {brands.map((item, i) => (
             <p
               key={i}
-              onClick={() => dispatch(selectFilter(item.title))}
+              onClick={() => handleClickFilters(item.title)}
               className={`brand-item ${
                 filters.selectFilter === item.title
                   ? "active-brand"
@@ -47,7 +89,7 @@ const ProductsPage = () => {
           {productsReview.map((item, i) => (
             <p
               key={i}
-              onClick={() => dispatch(selectFilter(item))}
+              onClick={() => handleClickFilters(item)}
               className={`brand-item ${
                 filters.selectFilter === item ? "active-brand" : "brand-item"
               }`}
@@ -58,13 +100,30 @@ const ProductsPage = () => {
         </div>
       </FilterContainer>
       <ProductsContainer>
-        <p>products container</p>
+        {isLoading ? (
+          <LoadingContainer className=' container '>
+            <Loading />
+          </LoadingContainer>
+        ) : (
+          <div className='products'>
+            {filteredProducts.data?.map((item, i) => (
+              <Link key={i} to={`/products/${item.id}`}>
+                <Card {...item} />
+              </Link>
+            ))}
+          </div>
+        )}
       </ProductsContainer>
     </Wrapper>
   );
 };
 
 export default ProductsPage;
+
+const LoadingContainer = styled.div`
+  padding-bottom: 4rem;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   margin-top: 2rem;
@@ -96,6 +155,19 @@ const FilterContainer = styled.div`
   }
 `;
 const ProductsContainer = styled.div`
-  background-color: green;
   flex: 4;
+  .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    margin-bottom: 4rem;
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    @media screen and (max-width: 500px) {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 4rem;
+    }
+  }
 `;
