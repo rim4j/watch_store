@@ -152,6 +152,17 @@ const ProductsPage = () => {
             ))}
           </div>
         )}
+        <PaginationContainer>
+          {filteredProducts.meta.links?.map((item, i) => (
+            <button
+              className={` ${
+                item.active ? "btn-navigation-active" : "btn-navigation"
+              }`}
+              key={i}
+              dangerouslySetInnerHTML={{ __html: item.label }}
+            />
+          ))}
+        </PaginationContainer>
       </ProductsContainer>
     </Wrapper>
   );
@@ -208,5 +219,30 @@ const ProductsContainer = styled.div`
       grid-template-columns: repeat(1, 1fr);
       gap: 4rem;
     }
+  }
+`;
+const PaginationContainer = styled.div`
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  display: flex;
+  justify-content: center;
+  direction: ltr;
+  .btn-navigation {
+    background-color: var(--color--light-grey);
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .btn-navigation-active {
+    background-color: var(--color-body);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    margin-right: 10px;
+    cursor: pointer;
   }
 `;
