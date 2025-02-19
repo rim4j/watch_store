@@ -80,6 +80,12 @@ const ProductsPage = () => {
     }
   };
 
+  const handleNavigationReq = (url) => {
+    if (url === null) return;
+
+    dispatch(fetchFilterProducts(url));
+  };
+
   return (
     <Wrapper>
       <FilterContainer>
@@ -126,7 +132,7 @@ const ProductsPage = () => {
           {categories.map((item, i) => (
             <p
               key={i}
-              onClick={() => handleClickFilters(item.title)}
+              onClick={() => handleNavigationReq(item.url)}
               className={`brand-item ${
                 filters.selectFilter === item.title
                   ? "active-brand"
@@ -160,6 +166,7 @@ const ProductsPage = () => {
               }`}
               key={i}
               dangerouslySetInnerHTML={{ __html: item.label }}
+              onClick={() => dispatch(fetchFilterProducts(item.url))}
             />
           ))}
         </PaginationContainer>
