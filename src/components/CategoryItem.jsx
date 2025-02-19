@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const CategoryItem = ({ title, image }) => {
+const CategoryItem = ({ title, image, onClick }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <img className='image' src={image} alt={title} />
       <p>{title}</p>
     </Container>

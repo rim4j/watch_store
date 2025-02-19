@@ -3,11 +3,24 @@ import styled from "styled-components";
 import { CiMenuFries } from "react-icons/ci";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import CategoryItem from "./CategoryItem";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  fetchFilterProductsByCategory,
+  selectFilter,
+} from "../features/filteredProducts/filteredProductsSlice";
+import { productsByCategoryUrl } from "../utils/url";
 
 const Category = () => {
   const { categories } = useSelector((state) => state.home);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleSelectCategory = (id, title) => {
+    navigate("/products");
+    dispatch(fetchFilterProductsByCategory(`${productsByCategoryUrl}/${id}`));
+    dispatch(selectFilter(title));
+  };
 
   return (
     <Wrapper>
@@ -23,7 +36,11 @@ const Category = () => {
       <div className='dialog '>
         {categories.map((item, i) => (
           <React.Fragment key={i}>
-            <CategoryItem title={item.title} image={item.image} />
+            <CategoryItem
+              title={item.title}
+              image={item.image}
+              onClick={() => handleSelectCategory(item.id, item.title)}
+            />
             {categories.length - 1 === i ? (
               <div />
             ) : (
