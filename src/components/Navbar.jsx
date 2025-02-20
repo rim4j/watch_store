@@ -12,12 +12,19 @@ import styled from "styled-components";
 import ListMenu from "./ListMenu";
 import Category from "./Category";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { searchProduct } from "../features/filteredProducts/filteredProductsSlice";
+import SearchedItem from "./SearchedItem";
+import searchImg from "./../assets/svg/search.svg";
 
 const Navbar = ({ openDrawer }) => {
   const [scrollY, setScrollY] = useState(0);
   const { token } = useSelector((state) => state.user);
   const { totalCount } = useSelector((state) => state.cart);
+  const { filters, filteredProducts } = useSelector(
+    (state) => state.filteredProducts
+  );
+  const dispatch = useDispatch();
 
   const handleScrollY = () => {
     setScrollY(window.scrollY);
@@ -28,6 +35,9 @@ const Navbar = ({ openDrawer }) => {
     return () => window.removeEventListener("scroll", handleScrollY);
   }, [scrollY]);
 
+  const handleSearch = (text) => {
+    dispatch(searchProduct(text));
+  };
   return (
     <Wrapper>
       <Container>
@@ -40,12 +50,32 @@ const Navbar = ({ openDrawer }) => {
 
         <img className='logo' src={Logo} alt='logo' />
         <SearchInputContainer className='hiddenSearch'>
-          <input
-            type='text'
-            placeholder='جستجوی محصولات'
-            className='search-input'
-          />
-          <IconButton icon={<CiSearch color='#333' size='24px' />} />
+          <div className='container'>
+            <input
+              type='text'
+              placeholder='جستجوی محصولات'
+              className='search-input'
+              value={filters.text}
+              onChange={(e) => handleSearch(e.target.value)}
+            />
+            <IconButton icon={<CiSearch color='#333' size='24px' />} />
+          </div>
+
+          {filters.text && (
+            <div className='search-container'>
+              {filteredProducts.length === 0 ? (
+                <div className='empty-search-container'>
+                  <img className='search-img' src={searchImg} alt='' />
+
+                  <p>محصولی با این مشخصات یافت نشد.</p>
+                </div>
+              ) : (
+                filteredProducts.map((item, i) => (
+                  <SearchedItem key={i} {...item} />
+                ))
+              )}
+            </div>
+          )}
         </SearchInputContainer>
 
         <IconContainer>
@@ -131,20 +161,40 @@ const IconContainer = styled.div`
   }
 `;
 const SearchInputContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  /* border: 1px solid #e6e6e6; */
-  border-radius: 100px;
-  width: 50%;
-  align-items: center;
-  padding-right: 10px;
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
-
   .search-input {
     outline: none;
     border: none;
     font-size: 14px;
     width: 90%;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 100px;
+    width: 30vw;
+    align-items: center;
+    padding-right: 10px;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  }
+  .search-container {
+    background-color: white;
+    position: absolute;
+    width: 30vw;
+    height: 40vh;
+    overflow-y: auto;
+    z-index: 200;
+    border-radius: 8px;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    .empty-search-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .search-img {
+        width: 20rem;
+        height: 20rem;
+      }
+    }
   }
 `;
 

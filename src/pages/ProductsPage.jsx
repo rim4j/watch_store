@@ -18,16 +18,13 @@ import { Link } from "react-router-dom";
 import { Card, Loading } from "./../components";
 
 const ProductsPage = () => {
-  const { brands, isLoadingBrand, filters, filteredProducts, isLoading } =
+  const { brands, filters, filteredProducts, allProducts, isLoading } =
     useSelector((state) => state.filteredProducts);
   const { categories } = useSelector((state) => state.home);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBrands());
-    if (filters.selectFilter === "همه محصولات") {
-      dispatch(fetchFilterProducts(allProductsUrl));
-    }
   }, []);
 
   const handleClickFilters = (title) => {
@@ -124,7 +121,7 @@ const ProductsPage = () => {
           </LoadingContainer>
         ) : (
           <div className='products'>
-            {filteredProducts.data?.map((item, i) => (
+            {filteredProducts?.map((item, i) => (
               <Link key={i} to={`/products/${item.id}`}>
                 <Card {...item} />
               </Link>
@@ -132,7 +129,7 @@ const ProductsPage = () => {
           </div>
         )}
         <PaginationContainer>
-          {filteredProducts.meta.links?.map((item, i) => (
+          {allProducts.meta.links?.map((item, i) => (
             <button
               className={` ${
                 item.active ? "btn-navigation-active" : "btn-navigation"

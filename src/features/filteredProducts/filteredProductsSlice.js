@@ -4,11 +4,12 @@ import { brandUrl } from "./../../utils/url";
 
 const defaultState = {
   isLoading: false,
-  filteredProducts: {
+  allProducts: {
     data: [],
     links: {},
     meta: {},
   },
+  filteredProducts: [],
   isLoadingBrand: false,
   brands: [],
   filters: {
@@ -73,6 +74,16 @@ const filteredProducts = createSlice({
     selectFilter: (state, { payload }) => {
       state.filters.selectFilter = payload;
     },
+    searchProduct: (state, { payload }) => {
+      state.filters.text = payload;
+
+      let tempProducts = [...state.allProducts.data];
+      tempProducts = tempProducts.filter((item) => {
+        return item.title.toLowerCase().includes(payload.toLowerCase());
+      });
+
+      state.filteredProducts = tempProducts;
+    },
   },
 
   extraReducers: (builder) => {
@@ -83,9 +94,10 @@ const filteredProducts = createSlice({
       fetchFilterProductsByCategory.fulfilled,
       (state, { payload }) => {
         state.isLoading = false;
-        state.filteredProducts.data = payload.products_by_category.data;
-        state.filteredProducts.links = payload.products_by_category.links;
-        state.filteredProducts.meta = payload.products_by_category.meta;
+        state.allProducts.data = payload.products_by_category.data;
+        state.allProducts.links = payload.products_by_category.links;
+        state.allProducts.meta = payload.products_by_category.meta;
+        state.filteredProducts = payload.products_by_category.data;
       }
     );
     builder.addCase(fetchFilterProductsByCategory.rejected, (state) => {
@@ -99,9 +111,10 @@ const filteredProducts = createSlice({
       fetchFilterProductsByBrand.fulfilled,
       (state, { payload }) => {
         state.isLoading = false;
-        state.filteredProducts.data = payload.products_by_brands.data;
-        state.filteredProducts.links = payload.products_by_brands.links;
-        state.filteredProducts.meta = payload.products_by_brands.meta;
+        state.allProducts.data = payload.products_by_brands.data;
+        state.allProducts.links = payload.products_by_brands.links;
+        state.allProducts.meta = payload.products_by_brands.meta;
+        state.filteredProducts = payload.products_by_brands.data;
       }
     );
     builder.addCase(fetchFilterProductsByBrand.rejected, (state) => {
@@ -113,9 +126,10 @@ const filteredProducts = createSlice({
     });
     builder.addCase(fetchFilterProducts.fulfilled, (state, { payload }) => {
       state.isLoading = false;
-      state.filteredProducts.data = payload.all_products.data;
-      state.filteredProducts.links = payload.all_products.links;
-      state.filteredProducts.meta = payload.all_products.meta;
+      state.allProducts.data = payload.all_products.data;
+      state.allProducts.links = payload.all_products.links;
+      state.allProducts.meta = payload.all_products.meta;
+      state.filteredProducts = payload.all_products.data;
     });
     builder.addCase(fetchFilterProducts.rejected, (state) => {
       state.isLoading = false;
@@ -136,5 +150,5 @@ const filteredProducts = createSlice({
   },
 });
 
-export const { selectFilter } = filteredProducts.actions;
+export const { selectFilter, searchProduct } = filteredProducts.actions;
 export default filteredProducts.reducer;

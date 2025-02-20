@@ -6,11 +6,16 @@ import question from "./../assets/svg/questions.svg";
 import { accordionData } from "./../utils/strings";
 
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   const { sliders, most_seller_products, amazing_products, newest_products } =
     useSelector((state) => state.home);
+  const navigate = useNavigate();
+
+  const handleShowAllProducts = () => {
+    navigate("/products");
+  };
 
   return (
     <Wrapper>
@@ -32,7 +37,12 @@ const LandingPage = () => {
       </div>
 
       <div className='btn-container'>
-        <Button title='مشاهده همه' outline icon={<FaArrowLeft />} />
+        <Button
+          title='مشاهده همه'
+          outline
+          icon={<FaArrowLeft />}
+          onClick={handleShowAllProducts}
+        />
       </div>
 
       {/* amazing products */}
@@ -46,7 +56,12 @@ const LandingPage = () => {
       </div>
 
       <div className='btn-container'>
-        <Button title='مشاهده همه' outline icon={<FaArrowLeft />} />
+        <Button
+          title='مشاهده همه'
+          outline
+          icon={<FaArrowLeft />}
+          onClick={handleShowAllProducts}
+        />
       </div>
 
       {/* newest products */}
@@ -60,7 +75,12 @@ const LandingPage = () => {
       </div>
 
       <div className='btn-container'>
-        <Button title='مشاهده همه' outline icon={<FaArrowLeft />} />
+        <Button
+          title='مشاهده همه'
+          outline
+          icon={<FaArrowLeft />}
+          onClick={handleShowAllProducts}
+        />
       </div>
 
       {/* accordion */}

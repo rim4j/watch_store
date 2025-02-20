@@ -16,3 +16,4 @@ export { default as Divider } from "./Divider";
 export { default as Modal } from "./Modal";
 export { default as Input } from "./Input";
 export { default as ErrorMessage } from "./ErrorMessage";
+export { default as SearchedItem } from "./SearchedItem";

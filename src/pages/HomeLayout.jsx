@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHomeItems } from "../features/home/homeSlice";
 import { getCartItems } from "../features/cart/cartSlice";
+import { allProductsUrl } from "../utils/url";
+import { fetchFilterProducts } from "../features/filteredProducts/filteredProductsSlice";
 
 const HomeLayout = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -17,6 +19,7 @@ const HomeLayout = () => {
   useEffect(() => {
     dispatch(getHomeItems());
     dispatch(getCartItems());
+    dispatch(fetchFilterProducts(allProductsUrl));
   }, []);
 
   return (
