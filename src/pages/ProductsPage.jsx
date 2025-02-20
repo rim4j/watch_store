@@ -11,10 +11,6 @@ import {
 import { productsReview } from "../utils/strings";
 import {
   allProductsUrl,
-  cheapestProductsUrl,
-  mostExpensiveProductsUrl,
-  mostViewedProductsUrl,
-  newestProductsUrl,
   productsByBrandUrl,
   productsByCategoryUrl,
 } from "../utils/url";
@@ -39,50 +35,10 @@ const ProductsPage = () => {
     if (title === "همه محصولات") {
       dispatch(fetchFilterProducts(allProductsUrl));
     }
-    if (title === "ورساچه") {
-      dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/1`));
-    }
-    if (title === "کاسیو") {
-      dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/3`));
-    }
-    if (title === "سیتیزن") {
-      dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/4`));
-    }
-    if (title === "اوماکس") {
-      dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/5`));
-    }
-    if (title === "سیکو") {
-      dispatch(fetchFilterProductsByBrand(`${productsByBrandUrl}/6`));
-    }
-    if (title === "جدید ترین محصولات") {
-      dispatch(fetchFilterProducts(newestProductsUrl));
-    }
-    if (title === "ارزان ترین محصولات") {
-      dispatch(fetchFilterProducts(cheapestProductsUrl));
-    }
-    if (title === "پر بازدید ترین محصولات") {
-      dispatch(fetchFilterProducts(mostViewedProductsUrl));
-    }
-    if (title === "گران ترین محصولات") {
-      dispatch(fetchFilterProducts(mostExpensiveProductsUrl));
-    }
-    if (title === "ساعت مردانه") {
-      dispatch(fetchFilterProductsByCategory(`${productsByCategoryUrl}/1`));
-    }
-    if (title === "ساعت اسپورت") {
-      dispatch(fetchFilterProductsByCategory(`${productsByCategoryUrl}/2`));
-    }
-    if (title === "ساعت زنانه") {
-      dispatch(fetchFilterProductsByCategory(`${productsByCategoryUrl}/3`));
-    }
-    if (title === "ساعت دیجیتال") {
-      dispatch(fetchFilterProductsByCategory(`${productsByCategoryUrl}/4`));
-    }
   };
 
   const handleNavigationReq = (url) => {
     if (url === null) return;
-
     dispatch(fetchFilterProducts(url));
   };
 
@@ -104,7 +60,12 @@ const ProductsPage = () => {
           {brands.map((item, i) => (
             <p
               key={i}
-              onClick={() => handleClickFilters(item.title)}
+              onClick={() => {
+                handleClickFilters(item.title);
+                dispatch(
+                  fetchFilterProductsByBrand(`${productsByBrandUrl}/${item.id}`)
+                );
+              }}
               className={`brand-item ${
                 filters.selectFilter === item.title
                   ? "active-brand"
@@ -119,12 +80,17 @@ const ProductsPage = () => {
           {productsReview.map((item, i) => (
             <p
               key={i}
-              onClick={() => handleClickFilters(item)}
+              onClick={() => {
+                handleClickFilters(item.title);
+                dispatch(fetchFilterProducts(item.url));
+              }}
               className={`brand-item ${
-                filters.selectFilter === item ? "active-brand" : "brand-item"
+                filters.selectFilter === item.title
+                  ? "active-brand"
+                  : "brand-item"
               }`}
             >
-              {item}
+              {item.title}
             </p>
           ))}
 
@@ -132,7 +98,14 @@ const ProductsPage = () => {
           {categories.map((item, i) => (
             <p
               key={i}
-              onClick={() => handleNavigationReq(item.url)}
+              onClick={() => {
+                handleClickFilters(item.title);
+                dispatch(
+                  fetchFilterProductsByCategory(
+                    `${productsByCategoryUrl}/${item.id}`
+                  )
+                );
+              }}
               className={`brand-item ${
                 filters.selectFilter === item.title
                   ? "active-brand"
@@ -166,7 +139,7 @@ const ProductsPage = () => {
               }`}
               key={i}
               dangerouslySetInnerHTML={{ __html: item.label }}
-              onClick={() => dispatch(fetchFilterProducts(item.url))}
+              onClick={() => handleNavigationReq(item.url)}
             />
           ))}
         </PaginationContainer>

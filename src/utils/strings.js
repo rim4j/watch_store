@@ -1,3 +1,10 @@
+import {
+  cheapestProductsUrl,
+  mostExpensiveProductsUrl,
+  mostViewedProductsUrl,
+  newestProductsUrl,
+} from "./url";
+
 export const AppStrings = {
   replace: "replace",
   enterYourNumber: "شماره خود را وارد کنید",
@@ -68,8 +75,20 @@ export const accordionData = [
 ];
 
 export const productsReview = [
-  "جدید ترین محصولات",
-  "ارزان ترین محصولات",
-  "پر بازدید ترین محصولات",
-  "گران ترین محصولات",
+  {
+    title: "جدید ترین محصولات",
+    url: newestProductsUrl,
+  },
+  {
+    title: "ارزان ترین محصولات",
+    url: cheapestProductsUrl,
+  },
+  {
+    title: "پر بازدید ترین محصولات",
+    url: mostViewedProductsUrl,
+  },
+  {
+    title: "گران ترین محصولات",
+    url: mostExpensiveProductsUrl,
+  },
 ];
