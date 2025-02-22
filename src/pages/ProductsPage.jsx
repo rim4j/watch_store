@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   fetchFilterProducts,
@@ -14,15 +15,17 @@ import {
   productsByBrandUrl,
   productsByCategoryUrl,
 } from "../utils/url";
-import { Link } from "react-router-dom";
-import { Card, Loading } from "./../components";
+import { Card, IconButton, Loading, Modal } from "./../components";
+import { FaFilter } from "react-icons/fa";
 
 const ProductsPage = () => {
   const { brands, filters, filteredProducts, allProducts, isLoading } =
     useSelector((state) => state.filteredProducts);
   const { categories } = useSelector((state) => state.home);
+  const [showModalFilter, setShowModalFilter] = useState(false);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getBrands());
   }, []);
@@ -37,6 +40,10 @@ const ProductsPage = () => {
   const handleNavigationReq = (url) => {
     if (url === null) return;
     dispatch(fetchFilterProducts(url));
+  };
+
+  const toggleShowModalFilter = () => {
+    setShowModalFilter(!showModalFilter);
   };
 
   return (
@@ -141,6 +148,14 @@ const ProductsPage = () => {
           ))}
         </PaginationContainer>
       </ProductsContainer>
+      <FabButton>
+        <IconButton
+          onClick={toggleShowModalFilter}
+          backgroundColor='#fff'
+          icon={<FaFilter color='#ff4156' size='24px' />}
+        />
+      </FabButton>
+      <Modal show={showModalFilter} closeModal={toggleShowModalFilter} />
     </Wrapper>
   );
 };
@@ -156,6 +171,13 @@ const Wrapper = styled.div`
   margin-top: 2rem;
 `;
 const FilterContainer = styled.div`
+  @media (max-width: 768px) {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    flex: 0;
+  }
+
   flex: 1;
   margin-left: 2rem;
   margin-bottom: 2rem;
@@ -183,6 +205,7 @@ const FilterContainer = styled.div`
 `;
 const ProductsContainer = styled.div`
   flex: 4;
+
   .products {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -222,4 +245,13 @@ const PaginationContainer = styled.div`
     margin-right: 10px;
     cursor: pointer;
   }
+`;
+
+const FabButton = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  }
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
 `;

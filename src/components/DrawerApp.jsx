@@ -10,6 +10,7 @@ import "react-modern-drawer/dist/index.css";
 
 const DrawerApp = ({ closeDrawer, open }) => {
   const [category, setCategory] = useState(false);
+
   return (
     <Drawer open={open} onClose={closeDrawer} direction='right' size='80vw'>
       {/* search */}
@@ -38,7 +39,11 @@ const DrawerApp = ({ closeDrawer, open }) => {
         </div>
       </TabsContainer>
 
-      {category ? <Category /> : <ListMenu />}
+      {category ? (
+        <Category closeDrawer={closeDrawer} />
+      ) : (
+        <ListMenu closeDrawer={closeDrawer} />
+      )}
     </Drawer>
   );
 };

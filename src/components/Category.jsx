@@ -11,7 +11,7 @@ import {
 } from "../features/filteredProducts/filteredProductsSlice";
 import { productsByCategoryUrl } from "../utils/url";
 
-const Category = () => {
+const Category = ({ closeDrawer }) => {
   const { categories } = useSelector((state) => state.home);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,7 +39,10 @@ const Category = () => {
             <CategoryItem
               title={item.title}
               image={item.image}
-              onClick={() => handleSelectCategory(item.id, item.title)}
+              onClick={() => {
+                handleSelectCategory(item.id, item.title);
+                closeDrawer();
+              }}
             />
             {categories.length - 1 === i ? (
               <div />

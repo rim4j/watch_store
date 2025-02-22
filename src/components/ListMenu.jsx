@@ -36,13 +36,13 @@ const listMenuData = [
   },
 ];
 
-const ListMenu = () => {
+const ListMenu = ({ closeDrawer }) => {
   return (
     <Container>
       {listMenuData.map((item, i) => (
         <Link key={i} to={item.path}>
           <ListMenuItem
-            onClick={() => console.log("go to " + item.title)}
+            onClick={closeDrawer}
             title={item.title}
             icon={item.icon}
           />
