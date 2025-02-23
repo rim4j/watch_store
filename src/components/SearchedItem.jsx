@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { getDetailsProduct } from "../features/products/productsSlice";
 
-const SearchedItem = ({ id, title, key, image }) => {
+const SearchedItem = ({ id, title, image }) => {
   const dispatch = useDispatch();
 
   return (
     <Container onClick={() => dispatch(getDetailsProduct(id))}>
-      <Link className='card' key={key} to={`products/${id}`}>
+      <Link className='card' to={`products/${id}`}>
         <img src={image} alt='image' />
         <p>{title}</p>
       </Link>

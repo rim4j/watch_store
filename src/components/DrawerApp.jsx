@@ -1,15 +1,23 @@
-import styled from "styled-components";
-import { CiSearch } from "react-icons/ci";
-import IconButton from "./IconButton";
 import { useState } from "react";
-import ListMenu from "./ListMenu";
-import Category from "./Category";
+import { CiSearch } from "react-icons/ci";
 import Drawer from "react-modern-drawer";
+import styled from "styled-components";
+import Category from "./Category";
+import IconButton from "./IconButton";
+import ListMenu from "./ListMenu";
 
 import "react-modern-drawer/dist/index.css";
+import { useDispatch, useSelector } from "react-redux";
+import { searchProduct } from "../features/filteredProducts/filteredProductsSlice";
 
 const DrawerApp = ({ closeDrawer, open }) => {
   const [category, setCategory] = useState(false);
+  const { filters } = useSelector((state) => state.filteredProducts);
+  const dispatch = useDispatch();
+
+  const handleSearch = (text) => {
+    dispatch(searchProduct(text));
+  };
 
   return (
     <Drawer open={open} onClose={closeDrawer} direction='right' size='80vw'>
@@ -19,8 +27,13 @@ const DrawerApp = ({ closeDrawer, open }) => {
           type='text'
           placeholder='جستجوی محصولات'
           className='search-input'
+          value={filters.text}
+          onChange={(e) => handleSearch(e.target.value)}
         />
-        <IconButton icon={<CiSearch color='#333' size='24px' />} />
+        <IconButton
+          icon={<CiSearch color='#333' size='24px' />}
+          onClick={closeDrawer}
+        />
       </SearchInputContainer>
 
       {/* tabs */}

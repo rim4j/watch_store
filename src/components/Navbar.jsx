@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import IconButton from "./IconButton";
 import { CiMenuFries } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
@@ -71,7 +71,9 @@ const Navbar = ({ openDrawer }) => {
                 </div>
               ) : (
                 filteredProducts.map((item, i) => (
-                  <SearchedItem key={i} {...item} />
+                  <React.Fragment key={i}>
+                    <SearchedItem {...item} />
+                  </React.Fragment>
                 ))
               )}
             </div>

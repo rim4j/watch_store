@@ -14,6 +14,7 @@ import {
   Loading,
   Modal,
 } from "./../components";
+import searchImage from "./../assets/svg/search.svg";
 
 const ProductsPage = () => {
   const { filteredProducts, allProducts, isLoading } = useSelector(
@@ -50,13 +51,21 @@ const ProductsPage = () => {
             <Loading />
           </LoadingContainer>
         ) : (
-          <div className='products'>
-            {filteredProducts?.map((item, i) => (
-              <Link key={i} to={`/products/${item.id}`}>
-                <Card {...item} />
-              </Link>
-            ))}
-          </div>
+          <>
+            {filteredProducts?.length === 0 && (
+              <div className='not-found-container'>
+                <img src={searchImage} alt='' />
+                <h3>هیج محصولی با این مشخصات یافت نشد</h3>
+              </div>
+            )}
+            <div className='products'>
+              {filteredProducts?.map((item, i) => (
+                <Link key={i} to={`/products/${item.id}`}>
+                  <Card {...item} />
+                </Link>
+              ))}
+            </div>
+          </>
         )}
         <PaginationContainer>
           {allProducts.meta.links?.map((item, i) => (
@@ -104,7 +113,19 @@ const FiltersProductsContainer = styled.div`
 `;
 const ProductsContainer = styled.div`
   flex: 4;
-
+  .not-found-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 200px;
+      height: 200px;
+    }
+    h3 {
+      font-size: 14px;
+    }
+  }
   .products {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
