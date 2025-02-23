@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-const IconButton = ({ className, onClick, backgroundColor, icon, badge }) => {
+const IconButton = ({
+  className,
+  onClick,
+  backgroundColor = "#fff",
+  icon,
+  badge,
+}) => {
   return (
     <div className='scale'>
       <Container

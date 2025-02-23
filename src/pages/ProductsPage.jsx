@@ -1,27 +1,24 @@
 import { useEffect, useState } from "react";
+import { FaFilter } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   fetchFilterProducts,
-  fetchFilterProductsByBrand,
-  fetchFilterProductsByCategory,
   getBrands,
-  selectFilter,
 } from "../features/filteredProducts/filteredProductsSlice";
-import { productsReview } from "../utils/strings";
 import {
-  allProductsUrl,
-  productsByBrandUrl,
-  productsByCategoryUrl,
-} from "../utils/url";
-import { Card, IconButton, Loading, Modal } from "./../components";
-import { FaFilter } from "react-icons/fa";
+  Card,
+  FiltersProducts,
+  IconButton,
+  Loading,
+  Modal,
+} from "./../components";
 
 const ProductsPage = () => {
-  const { brands, filters, filteredProducts, allProducts, isLoading } =
-    useSelector((state) => state.filteredProducts);
-  const { categories } = useSelector((state) => state.home);
+  const { filteredProducts, allProducts, isLoading } = useSelector(
+    (state) => state.filteredProducts
+  );
   const [showModalFilter, setShowModalFilter] = useState(false);
 
   const dispatch = useDispatch();
@@ -30,97 +27,23 @@ const ProductsPage = () => {
     dispatch(getBrands());
   }, []);
 
-  const handleClickFilters = (title) => {
-    dispatch(selectFilter(title));
-    if (title === "همه محصولات") {
-      dispatch(fetchFilterProducts(allProductsUrl));
-    }
-  };
-
   const handleNavigationReq = (url) => {
     if (url === null) return;
     dispatch(fetchFilterProducts(url));
   };
 
-  const toggleShowModalFilter = () => {
-    setShowModalFilter(!showModalFilter);
+  const showModal = () => {
+    setShowModalFilter(true);
+  };
+  const closeModal = () => {
+    setShowModalFilter(false);
   };
 
   return (
     <Wrapper>
-      <FilterContainer>
-        <div className='brand-container'>
-          <p className='title'>فیلترها:</p>
-          <p
-            onClick={() => handleClickFilters("همه محصولات")}
-            className={`brand-item ${
-              filters.selectFilter === "همه محصولات"
-                ? "active-brand"
-                : "brand-item"
-            }`}
-          >
-            همه محصولات
-          </p>
-          {brands.map((item, i) => (
-            <p
-              key={i}
-              onClick={() => {
-                handleClickFilters(item.title);
-                dispatch(
-                  fetchFilterProductsByBrand(`${productsByBrandUrl}/${item.id}`)
-                );
-              }}
-              className={`brand-item ${
-                filters.selectFilter === item.title
-                  ? "active-brand"
-                  : "brand-item"
-              }`}
-            >
-              {item.title}
-            </p>
-          ))}
-          <p className='title'>بازدید‌:</p>
-
-          {productsReview.map((item, i) => (
-            <p
-              key={i}
-              onClick={() => {
-                handleClickFilters(item.title);
-                dispatch(fetchFilterProducts(item.url));
-              }}
-              className={`brand-item ${
-                filters.selectFilter === item.title
-                  ? "active-brand"
-                  : "brand-item"
-              }`}
-            >
-              {item.title}
-            </p>
-          ))}
-
-          <p className='title'>دسته بندی : </p>
-          {categories.map((item, i) => (
-            <p
-              key={i}
-              onClick={() => {
-                handleClickFilters(item.title);
-                dispatch(
-                  fetchFilterProductsByCategory(
-                    `${productsByCategoryUrl}/${item.id}`
-                  )
-                );
-              }}
-              className={`brand-item ${
-                filters.selectFilter === item.title
-                  ? "active-brand"
-                  : "brand-item"
-              }`}
-            >
-              {item.title}
-            </p>
-          ))}
-        </div>
-      </FilterContainer>
+      <FiltersProductsContainer>
+        <FiltersProducts />
+      </FiltersProductsContainer>
       <ProductsContainer>
         {isLoading ? (
           <LoadingContainer className=' container '>
@@ -150,12 +73,12 @@ const ProductsPage = () => {
       </ProductsContainer>
       <FabButton>
         <IconButton
-          onClick={toggleShowModalFilter}
+          onClick={showModal}
           backgroundColor='#fff'
           icon={<FaFilter color='#ff4156' size='24px' />}
         />
       </FabButton>
-      <Modal show={showModalFilter} closeModal={toggleShowModalFilter} />
+      <Modal show={showModalFilter} closeModal={closeModal} />
     </Wrapper>
   );
 };
@@ -170,37 +93,13 @@ const Wrapper = styled.div`
   display: flex;
   margin-top: 2rem;
 `;
-const FilterContainer = styled.div`
+
+const FiltersProductsContainer = styled.div`
   @media (max-width: 768px) {
     display: none;
   }
   @media (max-width: 768px) {
     flex: 0;
-  }
-
-  flex: 1;
-  margin-left: 2rem;
-  margin-bottom: 2rem;
-  .title {
-    font-size: 16px;
-    color: black;
-    padding: 2rem;
-  }
-  .brand-container {
-    border: 1px solid var(--color--light-grey);
-    border-radius: 8px;
-    padding: 2rem;
-    background-color: white;
-  }
-  .brand-item {
-    font-size: 14px;
-    cursor: pointer;
-    color: var(--color-body);
-    margin-bottom: 1rem;
-    border-bottom: 1px solid transparent;
-  }
-  .active-brand {
-    border-bottom: 1px solid var(--color-body);
   }
 `;
 const ProductsContainer = styled.div`
