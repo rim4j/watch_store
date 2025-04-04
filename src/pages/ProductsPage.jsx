@@ -43,7 +43,7 @@ const ProductsPage = () => {
   return (
     <Wrapper>
       <FiltersProductsContainer>
-        <FiltersProducts />
+        <FiltersProducts closeModal={closeModal} />
       </FiltersProductsContainer>
       <ProductsContainer>
         {isLoading ? (
